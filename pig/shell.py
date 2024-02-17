@@ -1,18 +1,26 @@
 import cmd
-# import gameplay
+import user
+import dice
 
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice"""
     intro = 'This is a game of Pig \n'
-    prompt = '(pig)'
+    prompt = '(PIG)'
 
     def __init__(self):
         """Instansiate the object"""
         super().__init__()
+        self.dice = dice.Dice()
 
-    def do_start():
+    def do_start(self, _):
         """Start a game of pig."""
+        player_1 = input("What is you name? ")
+        # check if player_1 exist
+        dice_1, dice_2 = self.dice.toss()
+        print(f"{dice_1}, {dice_2}")
+
         # Calls a class.method that starts the game
+        
     
     def do_players(self, arg):
         """
@@ -30,11 +38,15 @@ class Shell(cmd.Cmd):
         else: 
             print(error_message)
     
-    def do_quit(self, arg):
+    def do_quit(self, _):
         """Quits the game"""
         return True
     
-    def do_cheat(self, arg):
+    def do_exit(self, _):
+        """Exits the game"""
+        return True  
+    
+    def do_cheat(self, _):
         """A cheat to directly win the game (for testing purposes only)"""
         print("Cheater.. cheater..")
 
