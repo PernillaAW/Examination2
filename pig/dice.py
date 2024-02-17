@@ -8,8 +8,8 @@ class Dice:
         """Starts a random module """
         self.dice_low = 1
         self.dice_high = 6
-        self.current_user = user.User()
-        self.toss = 0
+#       self.current_user
+        self.toss_count = 0
         random.seed()
 
     def toss(self):
