@@ -23,5 +23,9 @@ class Dice:
         if self.current_user.get_user_name == user:
             toss_count =+ 1
             return toss_count
-        
+    
+    def dice_cheat(self):
+        """Highest game level cheat"""
+        self.dice_low = 2
+
 
