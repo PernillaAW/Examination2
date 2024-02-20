@@ -24,9 +24,9 @@ class Shell(cmd.Cmd):
 
     def do_players(self, arg):
         """
-        User decides to play against computer or another player 
+        User decides to play against computer or another player
         'players 1' - Play against the computer
-        'players 2' - Play against a friend 
+        'players 2' - Play against a friend
         """
         error_message = "Invalid choice. Write 'players 1' or 'players 2'"
         if (arg == '1'):
@@ -44,7 +44,7 @@ class Shell(cmd.Cmd):
 
     def do_exit(self, _):
         """Exits the game"""
-        return True  
+        return True
 
     def do_cheat(self, _):
         """A cheat to directly win the game (for testing purposes only)"""
