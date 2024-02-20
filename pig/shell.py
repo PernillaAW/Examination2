@@ -20,10 +20,7 @@ class Shell(cmd.Cmd):
         playerlist = highscore.Highscore()
         playerlist.read_from_file()
         player_1 = input("What is you name? ")
-        player_1 = playerlist.check_list(player_1, 1)
-        dice_1, dice_2 = self.dice.toss()
-        print(f"{dice_1}, {dice_2}")
-
+        player_1 = playerlist.check_list_current_user(player_1)
         # Calls a class.method that starts the game
 
     def do_players(self, arg):

@@ -2,7 +2,7 @@ import highscore
 
 
 class User:
-    
+
     def __init__(self, user_name):
         self.user_name = user_name
         self.highscore = 0
@@ -14,7 +14,7 @@ class User:
         user_name = input(f"Change {self.user_name} to: ")
         old_name = self.user_name
         self.user_name = user_name
-        highscore.Highscore().check_list(self, old_name, 2)
+        highscore.Highscore().check_list_add_remove(self, old_name)
         print(f'Your usename has now been changed to {self.user_name}')
 
     def update_score(self, score):

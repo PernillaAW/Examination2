@@ -13,17 +13,20 @@ class Highscore:
         user.User(user_name)
         self.playerlist.append(user)
 
-    def check_list(self, user, user_name, num):
+    def check_list_current_user(self, user_name):
         """Checks if player exist in high score list"""
         for player in self.playerlist:
             if player().get_user_name() == user_name:
-                if num == 1:
-                    return player
-                else:
-                    self.playerlist.remove(player)
-                    self.playerlist.append(user)
-                    return None
+                return player
         return self.new_player(user_name)
+    
+    def check_list_add_remove(self, user, old_name):
+        for player in self.playerlist:
+            if player().get_user_name() == old_name:
+                self.playerlist.remove(player)
+                self.playerlist.append(user)
+                return True
+        return False
 
     def read_to_file(self):
         with open(self.file, 'wb') as f:

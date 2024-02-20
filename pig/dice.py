@@ -2,6 +2,7 @@
 import random
 import user
 
+
 class Dice:
     """Dice class, rolls two dices"""
     def __init__(self):
@@ -25,7 +26,4 @@ class Dice:
             return toss_count
     
     def dice_cheat(self):
-        """Highest game level cheat"""
         self.dice_low = 2
-
-
