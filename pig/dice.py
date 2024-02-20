@@ -21,7 +21,5 @@ class Dice:
     def toss_count(self, user):
         """Count the number of tosses of the user"""
         if self.current_user.get_user_name == user:
-            toss_count =+ 1
+            toss_count += 1
             return toss_count
-        
-
