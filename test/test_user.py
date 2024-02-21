@@ -1,4 +1,4 @@
-from pig import User, Highscore
+from pig import User
 import unittest
 
 
@@ -43,8 +43,3 @@ class TestUserClass(unittest.TestCase):
         res = user.cheat()
         exp = 100
         self.assertEqual(res, exp)
-
-
-
-
-

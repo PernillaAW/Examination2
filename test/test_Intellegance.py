@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from pig import Intellegance, User
 import unittest
+from pig import Intellegance, User
 
 
 class TestIntelleganceClass(unittest.TestCase):

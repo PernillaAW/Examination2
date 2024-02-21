@@ -1,5 +1,4 @@
 import cmd
-import User
 import Dice
 import Intellegance
 import Highscore
@@ -33,12 +32,12 @@ class Shell(cmd.Cmd):
         player.change_name(player, new_name)
         Highscore.Highscore().check_list_add_remove(player, old_username)
         print(f'Your usename has now been changed to {player.get_user_name}')
- 
+
     def do_players(self, arg):
         """
-        User decides to play against computer or another player 
+        User decides to play against computer or another player
         'players 1' - Play against the computer
-        'players 2' - Play against a friend 
+        'players 2' - Play against a friend
         """
         error_message = "Invalid choice. Write 'players 1' or 'players 2'"
         if (arg == '1'):
@@ -73,4 +72,3 @@ class Shell(cmd.Cmd):
     def do_high_score_display(self):
         """Display the high score list"""
         Highscore.Highscore().read_from_file().display()
-    

@@ -20,7 +20,7 @@ class Highscore:
             if player().get_user_name() == user_name:
                 return player
         return self.new_player(user_name)
-    
+
     def check_list_add_remove(self, user, old_name):
         for player in self.playerlist:
             if player().get_user_name() == old_name:
