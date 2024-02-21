@@ -10,10 +10,8 @@ class User:
         self.game_count = 0
 
     def change_name(self, new_name):
-        old_name = self.user_name
         self.user_name = new_name
-        changed = Highscore.Highscore().check_list_add_remove(self, old_name)
-        return changed
+        return self.user_name
 
     def update_score(self, score):
         """Updete the current users score"""

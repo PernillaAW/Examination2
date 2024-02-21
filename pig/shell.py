@@ -28,13 +28,12 @@ class Shell(cmd.Cmd):
     def do_name_change(self, player):
         """Change the name of the user"""
         old_username = player.get_user_name()
-        print(f"Current Username: {old_username}")
-        user_name = input(f"Change {old_username} to: ")
-        player.change_name(player, user_name)
-        print(f'Your usename has now been changed to {self.user_name}')
-        
-
-    
+        new_name = input(f"Current Username: {old_username} \
+                         \nChange {old_username} to: ")
+        player.change_name(player, new_name)
+        Highscore.Highscore().check_list_add_remove(player, old_username)
+        print(f'Your usename has now been changed to {player.get_user_name}')
+ 
     def do_players(self, arg):
         """
         User decides to play against computer or another player 
