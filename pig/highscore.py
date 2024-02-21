@@ -29,12 +29,18 @@ class Highscore:
         return False
 
     def read_to_file(self):
-        with open(self.file, 'wb') as f:
-            pickle.dump(self.playerlist, f)
+        try:
+            with open(self.file, 'wb') as f:
+                pickle.dump(self.playerlist, f)
+        except IOError:
+            print(f'Could not read file {self.file}')
 
     def read_from_file(self):
-        with open(self.file, 'rb') as file:
-            self.playerlist = pickle.load(file)
+        try:
+            with open(self.file, 'rb') as file:
+                self.playerlist = pickle.load(file)
+        except IOError:
+            print(f'Could not read file {self.file}')
 
     def display(self):
         """Displays every player on the list"""

@@ -1,5 +1,4 @@
 import dice
-import user
 
 
 class Intellegance:
@@ -12,38 +11,52 @@ class Intellegance:
         levels = {"low": 1, "medium": 2, "hard": 3}
         self.level = levels.get(choise)
         return self.level
+    
+    def calculate_result(self, a, b):
+        if a == 1 and b == 1:
+            result = 0
+        elif a == 1 or b == 1:
+            result = 1
+        else:
+            result = a + b
+        return result
 
-    def toss_or_hold(self, _):
+    def toss_or_hold(self, player):
         tosses = 0
         die = dice.Dice
         if self.level == 1:
             a, b = die().toss()
-            result = a + b
-            while result != 0 or tosses < 5:
+            result = self.calculate_result(a, b)
+            while result != 0 or tosses < 5 or result != 1:
                 tosses += 1
                 self.score += result
                 a, b = die().toss()
-                result = a + b
+                result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
+                return False
+            return True
 
         elif self.level == 2:
             a, b = die().toss()
-            result = a + b
-            while result != 0 or self.score < _ or tosses < 12:
+            result = self.calculate_result(a, b)
+            while result != 0 or self.score < player.get_score() or tosses < 12:
                 tosses += 1
                 self.score += result
                 a, b = die().toss()
-                result = a + b
+                result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
+                return False
+            return True
 
         elif self.level == 3:
             die().dice_cheat()
             a, b = die().toss()
-            result = a + b
-            while self.score < _ or tosses < 5:
+            result = self.calculate_result(a, b)
+            while self.score < player.get_score() or tosses < 5:
                 tosses += 1
                 self.score += result
                 result = die().toss()
-                result = a + b
+                result = self.calculate_result(a, b)
+            return True
