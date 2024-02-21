@@ -1,6 +1,6 @@
 import cmd
-import user
 import dice
+import gameplay
 
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice"""
@@ -11,13 +11,12 @@ class Shell(cmd.Cmd):
         """Instansiate the object"""
         super().__init__()
         self.dice = dice.Dice()
+        self.game = gameplay.Gameplay()
+        self.new_game = "Yes"
 
-    def do_start(self, _):
+    #def do_start(self, _):
         """Start a game of pig."""
-        player_1 = input("What is you name? ")
-        # check if player_1 exist
-        dice_1, dice_2 = self.dice.toss()
-        print(f"{dice_1}, {dice_2}")
+        #self.game.
 
         # Calls a class.method that starts the game
         
@@ -34,9 +33,32 @@ class Shell(cmd.Cmd):
             print('You have choosen to play against the computer')
         elif (arg == '2'):
             print('You have choosen to play against another player.')
-            # Calls add second player
+            self.new_game = self.game.add_two_players()
         else: 
             print(error_message)
+        return
+    
+    def do_toss(self, _):
+        """Toss the dices for you"""
+        error_message ="Please choose 'players 1' or 'players 2' first."
+        if self.new_game == "Yes":
+            user, dices = self.game.toss()
+            print(f'Dices rolled: {dices[0]}, {dices[1]}')
+            if dices[0] == 1 or dices[1]:
+                print(f"Oh no, you rolled a 1!")
+            else:
+                print(f'{user.get_user_name()} has {user.get_score()} points saved.')
+        else:
+            print(error_message)
+    
+    def do_hold(self, _):
+        """Holds the game and start tallys the score and saves it """
+        error_message ="Please choose 'players 1' or 'players 2' first."
+        if self.new_game == "Yes":
+            self.game.hold()
+        else:
+            print(error_message)
+
     
     def do_quit(self, _):
         """Quits the game"""
