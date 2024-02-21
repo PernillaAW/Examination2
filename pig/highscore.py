@@ -1,4 +1,4 @@
-import user
+import User
 import pickle
 
 
@@ -10,8 +10,8 @@ class Highscore:
 
     def new_player(self, user_name):
         """Creats and adds new player"""
-        user.User(user_name)
-        self.playerlist.append(user)
+        new_user = User.User(user_name)
+        self.playerlist.append(new_user)
 
     def check_list_current_user(self, user_name):
         """Checks if player exist in high score list"""

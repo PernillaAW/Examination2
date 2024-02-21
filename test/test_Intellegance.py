@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-"""Unit testing."""
-from pig import Intellegance, user, dice
+from pig import Intellegance, User
 import unittest
 
 
@@ -28,7 +26,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     def test_toss_or_hold_return_true(self):
         computer = Intellegance.Intellegance()
-        player_1 = user.User("G")
+        player_1 = User.User("G")
         res = computer.toss_or_hold(player_1)
         self.assertTrue(res)
 

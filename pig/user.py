@@ -1,4 +1,4 @@
-import highscore
+import Highscore
 
 
 class User:
@@ -15,7 +15,7 @@ class User:
         user_name = input(f"Change {self.user_name} to: ")
         old_name = self.user_name
         self.user_name = user_name
-        highscore.Highscore().check_list_add_remove(self, old_name)
+        Highscore.Highscore().check_list_add_remove(self, old_name)
         print(f'Your usename has now been changed to {self.user_name}')
 
     def update_score(self, score):
@@ -30,12 +30,13 @@ class User:
 
     def get_user_name(self):
         return self.user_name
-    
+
     def get_user_score(self):
         return self.score
 
     def cheat(self):
         self.score = 100
+        return self.score
 
     def __str__(self) -> str:
-        return f'User name: {self.user_name}\nTotalscore: {self.highscore}'
+        return f'{self.user_name}\nTotalscore: {self.highscore}\nCurrent score:{self.score}'

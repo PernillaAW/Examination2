@@ -1,15 +1,18 @@
-"""
--------------------- WELCOME TO A GAME OF PIG! --------------------
+import Dice
+import User
+import Intellegance
 
------ A die game where abit of strategy and cunning is needed -----
-
-"""
-import shell
 
 def main():
-    """ Start the program """
-    print(__doc__)
-    shell.Shell().cmdloop()
+    player = User.User("G")
+    computer = Intellegance.Intellegance()
+    computer.level_choice("hard")
+    player.update_score(50)
+    computer.toss_or_hold(player)
+    player.cheat()
+    print(computer)
+    print(player)
+
 
 if __name__ == "__main__":
     main()

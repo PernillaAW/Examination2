@@ -1,8 +1,8 @@
 import cmd
-import user
-import dice
+import User
+import Dice
 import Intellegance
-import highscore
+import Highscore
 
 
 class Shell(cmd.Cmd):
@@ -13,11 +13,13 @@ class Shell(cmd.Cmd):
     def __init__(self):
         """Instansiate the object"""
         super().__init__()
-        self.dice = dice.Dice()
+        self.dice = Dice.Dice()
 
     def do_start(self, _):
         """Start a game of pig."""
-        playerlist = highscore.Highscore()
+        dice = Dice.Dice()
+        dice.toss()
+        playerlist = Highscore.Highscore()
         playerlist.read_from_file()
         player_1 = input("What is you name? ")
         player_1 = playerlist.check_list_current_user(player_1)
@@ -31,25 +33,27 @@ class Shell(cmd.Cmd):
         """
         error_message = "Invalid choice. Write 'players 1' or 'players 2'"
         if (arg == '1'):
-            # Calls the computer intelligence
             computer = Intellegance.Intellegance
             print('You have choosen to play against the computer')
-            choise = input('Now chose game level low, medium, hard')
+            choise = input('Now chose game level low, medium, hard: ')
             computer = computer().level_choice(choise)
         elif (arg == '2'):
             print('You have choosen to play against another player.')
-            # Calls add second player
-        else: 
+            playerlist = Highscore.Highscore()
+            playerlist.read_from_file()
+            player_2 = input("What is you name? ")
+            player_2 = playerlist.check_list_current_user(player_2)
+        else:
             print(error_message)
 
     def do_quit(self, _):
         """Quits the game"""
-        highscore.Highscore().read_to_file()
+        Highscore.Highscore().read_to_file()
         return True
 
     def do_exit(self, _):
         """Exits the game"""
-        highscore.Highscore().read_to_file()
+        Highscore.Highscore().read_to_file()
         return True
 
     def do_cheat(self, _):
@@ -59,5 +63,5 @@ class Shell(cmd.Cmd):
 
     def do_high_score_display(self):
         """Display the high score list"""
-        highscore.Highscore().read_from_file().display()
+        Highscore.Highscore().read_from_file().display()
     

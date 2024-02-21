@@ -9,7 +9,6 @@ class Dice:
         self.dice_low = 1
         self.dice_high = 6
         self.toss_count = 0
-        random.seed()
 
     def toss(self):
         """Rolls two dices and returns their value"""
