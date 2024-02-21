@@ -1,4 +1,4 @@
-import Highscore
+from pig import Highscore
 
 
 class User:
@@ -9,14 +9,11 @@ class User:
         self.score = 0
         self.game_count = 0
 
-    def change_name(self):
-        """Change the name of the user"""
-        print(f"Current Username: {self.user_name}")
-        user_name = input(f"Change {self.user_name} to: ")
+    def change_name(self, new_name):
         old_name = self.user_name
-        self.user_name = user_name
-        Highscore.Highscore().check_list_add_remove(self, old_name)
-        print(f'Your usename has now been changed to {self.user_name}')
+        self.user_name = new_name
+        changed = Highscore.Highscore().check_list_add_remove(self, old_name)
+        return changed
 
     def update_score(self, score):
         """Updete the current users score"""
@@ -39,4 +36,5 @@ class User:
         return self.score
 
     def __str__(self) -> str:
-        return f'{self.user_name}\nTotalscore: {self.highscore}\nCurrent score:{self.score}'
+        return f'{self.user_name}\nTotalscore: {self.highscore}\n \
+            Current score: {self.score}'

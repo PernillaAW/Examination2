@@ -1,4 +1,4 @@
-import Dice
+from pig import Dice
 
 
 class Intellegance:
@@ -40,7 +40,8 @@ class Intellegance:
         elif self.level == 2:
             a, b = die().toss()
             result = self.calculate_result(a, b)
-            while result != 0 and tosses < 8 or self.score < 10 + player.get_user_score():
+            while result != 0 and tosses < 8 or \
+                    self.score < 10 + player.get_user_score():
                 tosses += 1
                 self.score += result
                 a, b = die().toss()

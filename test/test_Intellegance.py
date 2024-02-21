@@ -9,8 +9,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     def test_init_object(self):
         res = Intellegance.Intellegance()
-        exp = Intellegance.Intellegance()
-        self.assertIsInstance(res, exp)
+        self.assertIsInstance(res, Intellegance.Intellegance)
 
     def test_level_choice(self):
         computer = Intellegance.Intellegance()
@@ -26,6 +25,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     def test_toss_or_hold_return_true(self):
         computer = Intellegance.Intellegance()
+        computer.level_choice('low')
         player_1 = User.User("G")
         res = computer.toss_or_hold(player_1)
         self.assertTrue(res)
