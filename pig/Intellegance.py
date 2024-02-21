@@ -34,7 +34,6 @@ class Intellegance:
                 result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
-                return False
             return True
 
         elif self.level == 2:
@@ -48,7 +47,6 @@ class Intellegance:
                 result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
-                return False
             return True
 
         elif self.level == 3:

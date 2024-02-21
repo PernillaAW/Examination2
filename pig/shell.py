@@ -22,7 +22,6 @@ class Shell(cmd.Cmd):
         playerlist.read_from_file()
         player_1 = input("What is you name? ")
         player_1 = playerlist.check_list_current_user(player_1)
-        # Calls a class.method that starts the game
 
     def do_name_change(self, player):
         """Change the name of the user"""

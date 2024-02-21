@@ -23,9 +23,23 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    def test_toss_or_hold_return_true(self):
+    def test_toss_or_hold_low(self):
         computer = Intellegance.Intellegance()
         computer.level_choice('low')
+        player_1 = User.User("G")
+        res = computer.toss_or_hold(player_1)
+        self.assertTrue(res)
+    
+    def test_toss_or_hold_medium(self):
+        computer = Intellegance.Intellegance()
+        computer.level_choice('medium')
+        player_1 = User.User("G")
+        res = computer.toss_or_hold(player_1)
+        self.assertTrue(res)
+
+    def test_toss_or_hold_hard(self):
+        computer = Intellegance.Intellegance()
+        computer.level_choice('hard')
         player_1 = User.User("G")
         res = computer.toss_or_hold(player_1)
         self.assertTrue(res)
