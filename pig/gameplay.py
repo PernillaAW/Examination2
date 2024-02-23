@@ -1,8 +1,6 @@
 """Importing class modules and libraries"""
 import pickle
-import user
-import dice
-import highscore
+from pig import user, dice, highscore
 
 
 class Gameplay:
@@ -20,13 +18,18 @@ class Gameplay:
 
     #Saves a file if user quits before game has ended
     def read_to_file(self, user_to_save_1, user_to_save_2):
+        """Saves a game that is being played"""
         to_save = (user_to_save_1, user_to_save_2)
+        success = False
         with open(self.file, 'wb') as file:
             pickle.dump(to_save, file)
+            success = True
+        return success
+
        
     #Checks if a current game exists
     def read_from_file(self):
-        """Loads a saved pickle file"""
+        """Loads a saved game"""
         try:
             with open(self.file, 'rb') as file:
                 user_to_load = ()
@@ -36,8 +39,9 @@ class Gameplay:
             return None, None
         except EOFError:
             return None, None
-    
+
     def add_two_players(self):
+        """Adds two players to the game, if they already exists their score is loaded"""
         user_name_1 = input("Enter Player 1 name: ")
         user_name_2 = input("Enter Player 2 name: ")
         self.user_1 = self.highscore().check_list_current_user(user_name_1)
@@ -64,9 +68,10 @@ class Gameplay:
                     self.user_2 = user_to_load[1]
         except FileNotFoundError:
             pass
-        return
+        return self.user_1, self.user_2
 
     def toss(self):
+        """Where dices gets tossed, added up and saved s"""
         dice_1, dice_2 = self.dice().toss()
         dices = [dice_1, dice_2]
         if self.users_turn == 1:
