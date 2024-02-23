@@ -25,6 +25,9 @@ class User:
 
     def get_user_score(self):
         return self.score
+    
+    def get_highscore(self):
+        return self.highscore
 
     def cheat(self):
         self.score = 100

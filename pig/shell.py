@@ -63,11 +63,13 @@ class Shell(cmd.Cmd):
         Highscore.Highscore().read_to_file()
         return True
 
-    def do_cheat(self, _):
+    def do_cheat(self, player):
         """A cheat to directly win the game (for testing purposes only)"""
         print("Cheater.. cheater..")
-        _.cheat()
+        player.cheat()
 
     def do_high_score_display(self):
         """Display the high score list"""
-        Highscore.Highscore().read_from_file().display()
+        Highscore.Highscore().read_from_file() \
+            .sort_player_highscore() \
+                 .display()
