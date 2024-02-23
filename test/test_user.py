@@ -49,3 +49,15 @@ class TestUserClass(unittest.TestCase):
         res = user.get_highscore()
         exp = 0
         self.assertEqual(res, exp)
+
+    def test_get_toss_count(self):
+        user = User.User('G')
+        res = user.get_highscore()
+        exp = 0
+        self.assertEqual(res, exp)
+
+    def test_update_toss_count(self):
+        user = User.User('G')
+        res = user.update_toss_count(1)
+        exp = 1
+        self.assertEqual(res, exp)
