@@ -43,3 +43,9 @@ class TestUserClass(unittest.TestCase):
         res = user.cheat()
         exp = 100
         self.assertEqual(res, exp)
+
+    def test_get_highscore(self):
+        user = User.User('G')
+        res = user.get_highscore()
+        exp = 0
+        self.assertEqual(res, exp)

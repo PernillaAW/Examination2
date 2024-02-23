@@ -12,9 +12,10 @@ class Dice:
 
     def toss(self):
         """Rolls two dices and returns their value"""
+        toss_count = self.toss_counts()
         dice_1 = random.randint(self.dice_low, self.dice_high)
         dice_2 = random.randint(self.dice_low, self.dice_high)
-        return dice_1, dice_2
+        return dice_1, dice_2, toss_count
 
     def toss_counts(self):
         """Count the number of tosses of the user"""

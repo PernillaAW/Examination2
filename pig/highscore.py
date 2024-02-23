@@ -1,4 +1,3 @@
-from unittest.util import sorted_list_difference
 from pig import User
 import pickle
 
@@ -45,7 +44,8 @@ class Highscore:
             print(f'Could not read file {self.file}')
 
     def sort_player_highscore(self):
-        self.playerlist.sort(key=lambda x: x.highscore, reverse=True)
+        self.playerlist.sort(key=lambda x: ([x.highscore], [x.toss_count]),
+                             reverse=True)
 
     def display(self):
         """Displays every player on the list"""

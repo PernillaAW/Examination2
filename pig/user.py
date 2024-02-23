@@ -5,6 +5,7 @@ class User:
         self.highscore = 0
         self.score = 0
         self.game_count = 0
+        self.toss_count = 0
 
     def change_name(self, new_name):
         self.user_name = new_name
@@ -19,6 +20,10 @@ class User:
         """Update the current user game count"""
         self.game_count += count
         return self.game_count
+    
+    def update_toss_count(self, counts):
+        self.toss_count = counts
+        return self.toss_count
 
     def get_user_name(self):
         return self.user_name
@@ -28,6 +33,9 @@ class User:
     
     def get_highscore(self):
         return self.highscore
+    
+    def get_user_toss_count(self):
+        return self.toss_count
 
     def cheat(self):
         self.score = 100
