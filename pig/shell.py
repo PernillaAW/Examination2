@@ -12,7 +12,7 @@ class Shell(cmd.Cmd):
         super().__init__()
         self.dice = dice.Dice()
         self.game = gameplay.Gameplay()
-        self.new_game = "Yes"
+        self.new_game = "No"
 
     #def do_start(self, _):
         """Start a game of pig."""
@@ -33,7 +33,11 @@ class Shell(cmd.Cmd):
             print('You have choosen to play against the computer')
         elif (arg == '2'):
             print('You have choosen to play against another player.')
-            self.new_game = self.game.add_two_players()
+            user_1, user_2 = self.game.add_two_players()
+            print(f"Welcome {user_1.get_user_name()} and \
+                  {user_2.get_user_name()}! {user_1.get_user_name()} starts. Write toss to \
+                    start the game.")
+            self.new_game = "Yes"
         else: 
             print(error_message)
         return
@@ -44,20 +48,26 @@ class Shell(cmd.Cmd):
         if self.new_game == "Yes":
             user, dices = self.game.toss()
             print(f'Dices rolled: {dices[0]}, {dices[1]}')
-            if dices[0] == 1 or dices[1]:
-                print(f"Oh no, you rolled a 1!")
+            if dices[0] == 1 or dices[1] == 1:
+                print(f"\nBad luck, you rolled a 1. {user.get_user_name()} no points this round. \n")
+            elif dices[0] == 1 and dices[1] == 1:
+                print(f"\nNo, two ones, all {user.get_user_name()} points disapear. \n")
             else:
-                print(f'{user.get_user_name()} has {user.get_score()} points saved.')
+                if user.get_score() >= 100:
+                    print(f"{user.get_user_name()} has won the game! Congratulations.")
+                    self.game.winner(user)
+                    return
+                else:
+                    print(f'\n{user.get_user_name()} has {user.get_round_count()} points this round, Toss or Hold?.\n')
         else:
             print(error_message)
     
     def do_hold(self, _):
         """Holds the game and start tallys the score and saves it """
-        error_message ="Please choose 'players 1' or 'players 2' first."
-        if self.new_game == "Yes":
-            self.game.hold()
-        else:
-            print(error_message)
+        user = self.game.hold()
+        print(f"\n{user.get_user_name()}'s turn to play. Your total score is " 
+              f"{user.get_score()} and you have tossed {user.get_toss_count()} times.\n")
+
 
     
     def do_quit(self, _):
