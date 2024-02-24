@@ -34,24 +34,31 @@ class TestGameplayClass (unittest.TestCase):
                                  unittest.mock.mock_open(read_data=pickle.dumps(user_1))):
             user_to_load = game.read_from_file()
             self.assertEqual(user_to_load, user_1)
-  
-    @patch('pig.dice.Dice')
-    def test_toss(self, mock_dice_class):
-        """Testing the toss method so it returns user and dices"""
-        mock_dice_1 = Mock()
-        mock_dice_2 = Mock()
-        mock_dice_1.__add__ = Mock(return_value=2)
-        mock_dice_2.__add__ = Mock(return_value=5)
-        mock_dice_class.return_value.toss.return_value = (2, 5)
-        mock_user_1 = Mock()
-        mock_user_1.get_user_name.return_value = "p"
+
+    def test_add_two_players(self):
+        """Test if two players can be added.s"""
         game = gameplay.Gameplay()
-        game.user_1 = mock_user_1
 
-        user_res, dices_res = game.toss()
+        res = game.add_two_players()
+        exp = ["player 1", "player 2"]
+        self.assertEqual(res, exp)
 
-        self.assertEqual(dices_res, 'dices')
-        self.assertEqual(user_res, 'user')
+    def test_check_if_user_exists(self):
+        """Test if check against highscore list"""
+        game = gameplay.Gameplay()
+        users = ["player 1", "player 2"]
+        res = game.check_if_user_exists(users)
+        exp = ["player 1", "player 2"]
+        self.assertEqual(res, exp)
+
+    @patch('pig.dice.random')
+    def test_toss(self, mock_random):
+        """Testing the toss method so it returns user and dices"""
+        mock_random.randint.side_effect = [3,4]
+        game = gameplay.Gameplay()
+        res = game.toss()
+        exp = (3, 4)
+        self.assertEqual(res, exp)
 
 
 """
