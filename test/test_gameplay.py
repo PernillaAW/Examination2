@@ -1,8 +1,7 @@
 """Test module to test the module gameplay.py"""
-import tempfile
 import unittest
 import pickle
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from pig import gameplay
 
 class TestGameplayClass (unittest.TestCase):
@@ -43,13 +42,42 @@ class TestGameplayClass (unittest.TestCase):
         exp = ["player 1", "player 2"]
         self.assertEqual(res, exp)
 
-    def test_check_if_user_exists(self):
+    @patch('pig.user.User')
+    def test_check_if_user_exists(self, mock_user_User):
         """Test if check against highscore list"""
         game = gameplay.Gameplay()
         users = ["player 1", "player 2"]
-        res = game.check_if_user_exists(users)
-        exp = ["player 1", "player 2"]
+
+        user_objects = [mock_user_User.return_value(user_name) for user_name in users]
+
+        mock_user_1 = user_objects[0]
+        mock_user_1.get_user_name.return_value = "player 1"
+        mock_user_2 = user_objects[1]
+        mock_user_2.get_user_name.return_value = "player 2"
+
+        res = game.check_if_user_exists(user_objects)
+
+        exp = user_objects
         self.assertEqual(res, exp)
+
+    @patch('pig.user.User')
+    def test_check_saved_game(self, mock_user_User):
+        """Test if there is any games saved"""
+        game = gameplay.Gameplay()
+        users = ["player 1", "player 2"]
+
+        user_objects = [mock_user_User.return_value(user_name) for user_name in users]
+
+        mock_user_1 = user_objects[0]
+        mock_user_1.get_user_name.return_value = "player 1"
+        mock_user_2 = user_objects[1]
+        mock_user_2.get_user_name.return_value = "player 2"
+
+        res = game.check_saved_game(user_objects)
+
+        exp = user_objects
+        self.assertEqual(res, exp)
+
 
     @patch('pig.dice.random')
     def test_toss(self, mock_random):
