@@ -64,6 +64,8 @@ class Gameplay:
         else:
             self.user_2 = user.User(user_name_2)
             self.user_2.game_count += 1
+        users[0] = self.user_1
+        users[1] = self.user_2
         return users
 
     def check_saved_game(self, users):
@@ -81,7 +83,7 @@ class Gameplay:
                     self.user_2 = user_to_load[1]
             else:
                 self.user_1 = user.User(users[0])
-                self.user_1 = user.User(users[1])                    
+                self.user_1 = user.User(users[1])
             users[0] = self.user_1
             users[1] = self.user_2
         except FileNotFoundError:
