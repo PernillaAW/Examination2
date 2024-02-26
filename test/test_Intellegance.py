@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import unittest
-from pig import Intellegance, User
+from unittest.mock import Mock, patch
+from pig import Intellegance
 
 
 class TestIntelleganceClass(unittest.TestCase):
@@ -23,26 +24,35 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    def test_toss_or_hold_low(self):
+    @patch('pig.User.User.get_user_score')
+    def test_toss_or_hold_low(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('low')
-        player_1 = User.User("G")
+        mock_get.return_value = 10
+        player_1 = Mock()
         res = computer.toss_or_hold(player_1)
-        self.assertTrue(res)
-    
-    def test_toss_or_hold_medium(self):
+        exp = 1
+        self.assertEqual(res, exp)
+
+    @patch('pig.User.User')
+    def test_toss_or_hold_medium(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('medium')
-        player_1 = User.User("G")
-        res = computer.toss_or_hold(player_1)
-        self.assertTrue(res)
+        mock_user = mock_get.return_value
+        mock_user.get_user_score.return_value = 20
+        res = computer.toss_or_hold(mock_user)
+        exp = 2
+        self.assertEqual(res, exp)
 
-    def test_toss_or_hold_hard(self):
+    @patch('pig.User.User.get_user_score')
+    def test_toss_or_hold_hard(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('hard')
-        player_1 = User.User("G")
-        res = computer.toss_or_hold(player_1)
-        self.assertTrue(res)
+        mock_user = mock_get.return_value
+        mock_user.get_user_score.return_value = 20
+        res = computer.toss_or_hold(mock_user)
+        exp = 3
+        self.assertEqual(res, exp)
 
 
 if __name__ == "__main__":

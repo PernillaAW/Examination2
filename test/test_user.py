@@ -20,10 +20,22 @@ class TestUserClass(unittest.TestCase):
         exp = 50
         self.assertEqual(res, exp)
 
+    def test_update_score_loss_round(self):
+        user = User.User('G')
+        res = user.update_score(0)
+        exp = 0
+        self.assertEqual(res, exp)
+
     def test_update_game_count(self):
         user = User.User('G')
         res = user.update_game_count(50)
         exp = 50
+        self.assertEqual(res, exp)
+
+    def test_update_round_count(self):
+        user = User.User('G')
+        res = user.update_game_count(20)
+        exp = 20
         self.assertEqual(res, exp)
 
     def test_get_user_name(self):
@@ -38,7 +50,7 @@ class TestUserClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    def test_cheat(self):
+    def test_cheat_score(self):
         user = User.User('G')
         res = user.cheat()
         exp = 100

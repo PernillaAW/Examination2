@@ -25,40 +25,40 @@ class Intellegance:
         tosses = 0
         die = Dice.Dice
         if self.level == 1:
-            a, b, c = die().toss()
+            a, b = die().toss()
             result = self.calculate_result(a, b)
             while result != 0 and tosses < 5 and result != 1:
                 tosses += 1
                 self.score += result
-                a, b, c = die().toss()
+                a, b = die().toss()
                 result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
-            return True
+            return 1
 
         elif self.level == 2:
-            a, b, c = die().toss()
+            a, b = die().toss()
             result = self.calculate_result(a, b)
             while result != 0 and tosses < 8 or \
                     self.score < 10 + player.get_user_score():
                 tosses += 1
                 self.score += result
-                a, b, c = die().toss()
+                a, b = die().toss()
                 result = self.calculate_result(a, b)
             if result == 0:
                 self.score = 0
-            return True
+            return 2
 
         elif self.level == 3:
             die().dice_cheat()
-            a, b, c = die().toss()
+            a, b = die().toss()
             result = self.calculate_result(a, b)
             while self.score < 6 + player.get_user_score() or tosses < 5:
                 tosses += 1
                 self.score += result
-                a, b, c = die().toss()
+                a, b = die().toss()
                 result = self.calculate_result(a, b)
-            return True
+            return 3
 
     def __str__(self) -> str:
         return f'Computer:\nCurrent score: {self.score}'
