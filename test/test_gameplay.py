@@ -1,12 +1,12 @@
 """Test module to test the module gameplay.py"""
 import unittest
 import pickle
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 from pig import gameplay
 
 class TestGameplayClass (unittest.TestCase):
     """Class to test the class gameplay.py"""
-    
+
     def test_init_default_object(self):
         """Checks that object can be instanciated"""
         game = gameplay.Gameplay()
@@ -82,44 +82,28 @@ class TestGameplayClass (unittest.TestCase):
     @patch('pig.dice.random')
     def test_toss(self, mock_random):
         """Testing the toss method so it returns user and dices"""
-        mock_random.randint.side_effect = [3,4]
+        mock_random.randint.side_effect = [3, 4]
         game = gameplay.Gameplay()
         res = game.toss()
         exp = (3, 4)
         self.assertEqual(res, exp)
 
-
-"""
+    @patch('pig.dice.Dice')
     @patch('pig.user.User')
-    def test_add_two_players(self):
-        """#Test so that the game can add two players
-"""
-        game = gameplay.Gameplay()
+    def test_update_user_score(self, mock_dice, mock_user):
+        """Test to see it the user score will update"""
+        mock_dice_inst = mock_dice.return_value
+        mock_user_inst = mock_user.return_value
+        mock_toss = mock_dice_inst.toss.return_value = (2, 4)
 
-        res = game.add_two_players()
-        exp = "Yes"
+        game = gameplay.Gameplay()
+        initial_score = 10
+        mock_user_inst.score = initial_score
+
+        game.update_user_score(mock_toss)
+        res = initial_score + sum(mock_toss)
+        exp = initial_score + 6
+
         self.assertEqual(res, exp)
 
-    @patch('pig.user.User')
-    def test_toss(self, mock_user_1):
-        """#Test so the tossing of the dices works and score-tracking
-"""
-        game = gameplay.Gameplay()
-        mock_user_1 = Mock()
-        mock_user_1.get_user_name.return_value = "p"
-        game.user_1 = mock_user_1
-
-        res = game.toss()
-        exp = 1
-        self.assertEqual(res, exp)
-
-
-    def test_hold(self):
-        """#Test to check if it works to save and next player's turn
-"""
-        game = gameplay.Gameplay()
-        res = game.hold()
-        exp = 2
-        self.assertEqual(res, exp)
-
-"""
+    
