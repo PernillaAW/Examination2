@@ -10,8 +10,8 @@ class Gameplay:
         self.rounds = 0
         self.file = "saved_game.pickle"
         self.highscore = highscore.Highscore
-        self.user_1 = None
-        self.user_2 = None
+        self.user_1 = user.User
+        self.user_2 = user.User
         self.users_turn = 1
         self.dice = dice.Dice()
         self.round_score = 0
@@ -95,13 +95,14 @@ class Gameplay:
         dice_1, dice_2 = self.dice.toss()
         dices = (dice_1, dice_2)
         return dices
-    
+
     def update_user_score(self, dices):
         """Updates the score for user, also handles if user toss one or two one's"""
         dice_1 = dices[0]
         dice_2 = dices[1]
         if self.users_turn == 1:
-            self.user_1.update_toss_count()
+            if self.user_1 is not None:
+                 self.user_1.update_toss_count()
             if dice_1 == 1 and dice_2 ==1:
                 self.user_1.update_score(0)
             if dice_1 == 1 or dice_2 == 1:
@@ -113,6 +114,8 @@ class Gameplay:
                 self.user_1.update_score(total_dices)
             return self.user_1
         if self.users_turn == 2:
+            if self.user_1 is not None:
+                 self.user_1.update_toss_count()
             self.user_2.update_toss_count()
             if dice_1 == 1 and dice_2 ==1:
                 self.user_2.update_score(0)
