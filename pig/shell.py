@@ -40,8 +40,8 @@ class Shell(cmd.Cmd):
             users = self.game.check_saved_game(users)
             user_1 = users[0]
             user_2 = users[1]
-            print(f"Welcome {user_1.user_name()} and "
-                  f"{user_2.user_name()}! \n {user_1.user_name()} starts. Write toss to"
+            print(f"Welcome {user_1.get_user_name()} and "
+                  f"{user_2.get_user_name()}! \n {user_1.get_user_name()} starts. Write toss to"
                     f"start the game.")
             self.two_player = "Yes"
         else:
@@ -70,39 +70,35 @@ class Shell(cmd.Cmd):
                         f'points this round, Toss or Hold?.\n')
         #Plays against computer
         elif self.two_player == "No":
-            self.user_comp_1 = self.game.update_user_score(dices)
+            self.user_comp_1 = self.game.update_user_score_one_player(dices, self.user_comp_1)
             print(f'Dices rolled: {dices[0]}, {dices[1]}')
             if dices[0] == 1 or dices[1] == 1:
                 print(f"\nBad luck, you rolled a 1. {self.user_comp_1.get_user_name()}"
                       f"no points this round. \n")
             elif dices[0] == 1 and dices[1] == 1:
-                print(f"\nNo, two ones, all {user.get_user_name()} points disapear. \n")
+                print(f"\nNo, two ones, all {self.user_comp_1.get_user_name()} points disapear. \n")
             else:
-                if user.get_score() >= 100:
-                    print(f"{user.get_user_name()} has won the game! Congratulations.")
-                    self.game.winner(user)
+                if self.user_comp_1.get_score() >= 100:
+                    print(f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.")
+                    self.game.winner(self.user_comp_1)
                     return
                 else:
-                    print(f'\n{user.get_user_name()} has {user.get_round_count()}'
+                    print(f'\n{self.user_comp_1.get_user_name()} has {self.user_comp_1.get_round_count()}'
                         f'points this round, Toss or Hold?.\n')
-
-
-
-            computer_score = self.intelligence.toss_or_hold(self.user_comp_1)
-            self.computer.update_score(computer_score)
-            
-            
         else:
             print(error_msg)
 
     def do_hold(self, _):
         """Holds the game and start tallys the score and saves it """
-        user = self.game.hold()
-        print(f"\n{user.get_user_name()}'s turn to play. Your total score is "
-              f"{user.get_score()} and you have tossed {user.get_toss_count()} times.\n")
+        if self.two_player == "Yes":
+            user = self.game.hold()
+            print(f"\n{user.get_user_name()}'s turn to play. Your total score is "
+                  f"{user.get_score()} and you have tossed {user.get_toss_count()} times.\n")
+        elif self.two_player == "No":
+            computer_score = self.intelligence.toss_or_hold(self.user_comp_1)
+            self.computer.update_score(computer_score)
+            print(f'The computer scored {computer_score} points.')
 
-
-    
     def do_quit(self, _):
         """Quits the game"""
         return True

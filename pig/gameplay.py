@@ -101,8 +101,9 @@ class Gameplay:
         dice_1 = dices[0]
         dice_2 = dices[1]
         if self.users_turn == 1:
-            if self.user_1 is not None:
-                 self.user_1.update_toss_count()
+            if not hasattr(self.user_1, 'user_name'): 
+                 self.user_1 = one_player_user
+            self.user_1.update_toss_count()
             if dice_1 == 1 and dice_2 ==1:
                 self.user_1.update_score(0)
             if dice_1 == 1 or dice_2 == 1:
@@ -127,6 +128,24 @@ class Gameplay:
                 self.user_2.update_round_count(total_dices)
                 self.user_2.update_score(total_dices)
             return self.user_2
+        
+    def update_user_score_one_player(self, dices, one_player_user):
+        """Updates the score for user, also handles if user toss one or two one's"""
+        dice_1 = dices[0]
+        dice_2 = dices[1]
+        self.user_1 = one_player_user
+        self.user_1.update_toss_count()
+        if dice_1 == 1 and dice_2 ==1:
+            self.user_1.update_score(0)
+        if dice_1 == 1 or dice_2 == 1:
+            self.user_1.update_round_count(0)
+            self.hold_one_player()
+        else:
+            total_dices = dice_1 + dice_2
+            self.user_1.update_round_count(total_dices)
+            self.user_1.update_score(total_dices)
+            return self.user_1
+
 
     def hold(self):
         """ Saves the users and changes turn """
@@ -138,6 +157,13 @@ class Gameplay:
             self.users_turn = 1
             self.read_to_file(self.user_1, self.user_2)
             return self.user_1
+       
+
+    def hold_one_player(self):
+        """ Saves the users and changes turn """
+        self.user_2 = user.User("computer")
+        self.read_to_file(self.user_1, self.user_2)
+        return self.user_1
 
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved"""

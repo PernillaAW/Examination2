@@ -1,4 +1,4 @@
-from pig import highscore
+import highscore
 
 class User:
 
