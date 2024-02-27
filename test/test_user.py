@@ -70,6 +70,6 @@ class TestUserClass(unittest.TestCase):
 
     def test_update_toss_count(self):
         user = User.User('G')
-        res = user.update_toss_count(1)
+        res = user.update_toss_count()
         exp = 1
         self.assertEqual(res, exp)

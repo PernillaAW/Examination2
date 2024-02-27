@@ -24,11 +24,11 @@ class User:
         """Update the current user game count"""
         self.game_count += count
         return self.game_count
-    
-    def update_toss_count(self, counts):
+
+    def update_toss_count(self):
         self.toss_count += 1
         return self.toss_count
-    
+
     def update_round_count(self, score):
         if score == 0:
             self.round_count = 0
@@ -41,10 +41,10 @@ class User:
 
     def get_user_score(self):
         return self.score
-    
+
     def get_highscore(self):
         return self.highscore
-    
+
     def get_user_toss_count(self):
         return self.toss_count
 

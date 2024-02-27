@@ -24,13 +24,13 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    @patch('pig.User.User.get_user_score')
+    @patch('pig.User.User')
     def test_toss_or_hold_low(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('low')
-        mock_get.return_value = 10
-        player_1 = Mock()
-        res = computer.toss_or_hold(player_1)
+        mock_user = mock_get.return_value
+        mock_user.get_user_score.return_value = 10
+        res = computer.toss_or_hold(mock_user)
         exp = 1
         self.assertEqual(res, exp)
 
