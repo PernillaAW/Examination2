@@ -12,16 +12,10 @@ class Shell(cmd.Cmd):
         super().__init__()
         self.dice = dice.Dice()
         self.game = gameplay.Gameplay()
-        self.new_game = "No"
+        self.two_player = ''
         self.intelligence = Intellegance.Intellegance()
-        self.user = user.User
-
-    #def do_start(self, _):
-        """Start a game of pig."""
-        #self.game.
-
-        # Calls a class.method that starts the game
-
+        self.user_1 = user.User
+        self.computer = user.User
 
     def do_players(self, arg):
         """
@@ -36,11 +30,9 @@ class Shell(cmd.Cmd):
             level = input("At what level do you want to start?")
             self.intelligence.level_choice(level)
             user_name = input("What is your name?: ")
-            user_1 = user.User(user_name)
-            computer = user.User('Computer')
-            self.intelligence.toss_or_hold(user_1)
-            print(self.intelligence.score)
-
+            self.user_1 = user.User(user_name)
+            self.computer = user.User('Computer')
+            self.two_player = "No"
         elif arg == '2':
             print('You have choosen to play against another player.')
             users = self.game.add_two_players()
@@ -51,29 +43,36 @@ class Shell(cmd.Cmd):
             print(f"Welcome {user_1.user_name()} and "
                   f"{user_2.user_name()}! \n {user_1.user_name()} starts. Write toss to"
                     f"start the game.")
-            self.new_game = "Yes"
+            self.two_player = "Yes"
         else:
             print(error_message)
         return
 
     def do_toss(self, _):
         """Toss the dices for you"""
+        error_msg = "Please enter 'player 1' or 'player 2'."
         dices = self.game.toss()
-        user = self.game.update_user_score(dices)
-        print(f'Dices rolled: {dices[0]}, {dices[1]}')
-        if dices[0] == 1 or dices[1] == 1:
-            print(f"\nBad luck, you rolled a 1. {user.get_user_name()}"
-                  f"no points this round. \n")
-        elif dices[0] == 1 and dices[1] == 1:
-            print(f"\nNo, two ones, all {user.get_user_name()} points disapear. \n")
-        else:
-            if user.get_score() >= 100:
-                print(f"{user.get_user_name()} has won the game! Congratulations.")
-                self.game.winner(user)
-                return
+        if self.two_player == "Yes":
+            user = self.game.update_user_score(dices)
+            print(f'Dices rolled: {dices[0]}, {dices[1]}')
+            if dices[0] == 1 or dices[1] == 1:
+                print(f"\nBad luck, you rolled a 1. {user.get_user_name()}"
+                      f"no points this round. \n")
+            elif dices[0] == 1 and dices[1] == 1:
+                print(f"\nNo, two ones, all {user.get_user_name()} points disapear. \n")
             else:
-                print(f'\n{user.get_user_name()} has {user.get_round_count()}'
-                    f'points this round, Toss or Hold?.\n')
+                if user.get_score() >= 100:
+                    print(f"{user.get_user_name()} has won the game! Congratulations.")
+                    self.game.winner(user)
+                    return
+                else:
+                    print(f'\n{user.get_user_name()} has {user.get_round_count()}'
+                        f'points this round, Toss or Hold?.\n')
+        elif self.two_player == "No":
+            computer_score = self.intelligence.toss_or_hold(self.user_1)
+            
+        else:
+            print(error_msg)
 
     def do_hold(self, _):
         """Holds the game and start tallys the score and saves it """
