@@ -13,21 +13,23 @@ class Highscore:
         new_user = User.User(user_name)
         self.playerlist.append(new_user)
         return new_user
-
-    def check_list_current_user(self, user_name):
-        """Checks if player exist in high score list"""
+    
+    def check_list(self, user):
         for player in self.playerlist:
-            if player().get_user_name() == user_name:
+            if player == user:
                 return player
-        return self.new_player(user_name)
 
-    def check_list_add_remove(self, user, old_name):
-        for player in self.playerlist:
-            if player().get_user_name() == old_name:
-                self.playerlist.remove(player)
-                self.playerlist.append(user)
-                return True
-        return False
+    def check_highscore(self, user, player):
+        """Checks if player exist in high score list"""
+        if player.get_user_score() < user.get_user_score():
+            self.update_highscore_name_change(player, user)
+            return user
+        return player
+
+    def update_highscore_list(self, player, user):
+        self.playerlist.remove(player)
+        self.playerlist.append(user)
+        return True
 
     def read_to_file(self):
         try:
