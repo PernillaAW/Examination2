@@ -8,10 +8,6 @@ class Dice:
         """Starts a random module """
         self.dice_low = 1
         self.dice_high = 6
-<<<<<<< HEAD
-=======
-        random.seed()
->>>>>>> parent of 14000a2 (Solved merge conflicts)
 
     def toss(self):
         """Rolls two dices and returns their value"""
@@ -21,7 +17,3 @@ class Dice:
 
     def dice_cheat(self):
         self.dice_low = 2
-<<<<<<< HEAD
-=======
-        return self.dice_low
->>>>>>> parent of 14000a2 (Solved merge conflicts)
