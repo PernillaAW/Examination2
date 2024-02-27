@@ -21,7 +21,7 @@ class User:
 
     def update_game_count(self, count):
         """Update the current user game count"""
-        self.game_count =+ count
+        self.game_count += count
         return self.game_count
 
     def get_user_name(self):
