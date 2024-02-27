@@ -8,8 +8,6 @@ class Rules:
 
     * You can decide to hold if you want to end your turn
         * If you decide to hold your turn total is added to your score
-        * If you roll a double of any numbers except 1
-        you are NOT allowed to hold until you have rolled again
 
     * The turn total is calculated by adding the number from each dice rolled
     together except 1
