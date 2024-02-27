@@ -1,6 +1,6 @@
 """Importing class modules and libraries"""
 import pickle
-from pig import user, dice, highscore
+import user, dice, highscore
 
 
 class Gameplay:
@@ -83,7 +83,7 @@ class Gameplay:
                     self.user_2 = user_to_load[1]
             else:
                 self.user_1 = user.User(users[0])
-                self.user_1 = user.User(users[1])
+                self.user_2 = user.User(users[1])
             users[0] = self.user_1
             users[1] = self.user_2
         except FileNotFoundError:
