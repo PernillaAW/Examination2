@@ -30,7 +30,7 @@ class Intellegance:
             self.score += result
         return result
 
-    def toss(self, die):
+    def tossing(self, die):
         """This is the toss comand with in the intellagance"""
         self.tosses += 1
         a, b = die().toss()
@@ -43,24 +43,24 @@ class Intellegance:
         self.tosses = 0
         die = dice.Dice
         if self.level == 1:
-            result = self.toss(die)
+            result = self.tossing(die)
             while result != 0 and self.tosses < 5 and result != 1:
-                result = self.toss(die)
+                result = self.tossing(die)
             return 1
 
         elif self.level == 2:
-            result = self.toss(die)
+            result = self.tossing(die)
             while result != 1 and result != 0 and self.tosses < 8 or \
                     self.score < 10 + player.get_user_score():
-                result = self.toss(die)
+                result = self.tossing(die)
             return 2
 
         elif self.level == 3:
             die().dice_cheat()
-            result = self.toss(die)
+            result = self.tossing(die)
             while self.score < 6 + player.get_user_score() or \
                     self.tosses < 5:
-                result = self.toss(die)
+                result = self.tossing(die)
             return 3
 
     def __str__(self) -> str:
