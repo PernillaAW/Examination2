@@ -28,7 +28,7 @@ class Shell(cmd.Cmd):
             # Calls the computer intelligence
             print('You have choosen to play against the computer')
             level = input("At what level do you want to start?")
-            self.intelligence.level_choice(level)
+            self.game.computer_intelligence(level)
             user_name = input("What is your name?: ")
             self.user_comp_1 = user.User(user_name)
             self.computer = user.User('Computer')
@@ -74,17 +74,20 @@ class Shell(cmd.Cmd):
             print(f'Dices rolled: {dices[0]}, {dices[1]}')
             if dices[0] == 1 or dices[1] == 1:
                 print(f"\nBad luck, you rolled a 1. {self.user_comp_1.get_user_name()}"
-                      f"no points this round. \n")
+                      f" no points this round. \n")
+                self.game.hold_one_player()
             elif dices[0] == 1 and dices[1] == 1:
                 print(f"\nNo, two ones, all {self.user_comp_1.get_user_name()} points disapear. \n")
+                self.game.hold_one_player()
             else:
                 if self.user_comp_1.get_score() >= 100:
                     print(f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.")
                     self.game.winner(self.user_comp_1)
                     return
                 else:
-                    print(f'\n{self.user_comp_1.get_user_name()} has {self.user_comp_1.get_round_count()}'
-                        f'points this round, Toss or Hold?.\n')
+                    print(f'\n{self.user_comp_1.get_user_name()} has '
+                          f'{self.user_comp_1.get_round_count()}'
+                        f' points this round, Toss or Hold?.\n')
         else:
             print(error_msg)
 
@@ -95,9 +98,7 @@ class Shell(cmd.Cmd):
             print(f"\n{user.get_user_name()}'s turn to play. Your total score is "
                   f"{user.get_score()} and you have tossed {user.get_toss_count()} times.\n")
         elif self.two_player == "No":
-            computer_score = self.intelligence.toss_or_hold(self.user_comp_1)
-            self.computer.update_score(computer_score)
-            print(f'The computer scored {computer_score} points.')
+            self.game.hold_one_player()
 
     def do_quit(self, _):
         """Quits the game"""
