@@ -13,5 +13,5 @@ class Rules:
     together except 1
 
     * You have the option to cheat your way to victory,
-    but you can't cheat your way to the top highscore
+    but you can't cheat your way to the top of the list of highscores.
     """
