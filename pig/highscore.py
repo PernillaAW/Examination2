@@ -1,4 +1,4 @@
-"""This class handels Highscore."""
+"""Highscore module."""
 
 import pickle
 import user
