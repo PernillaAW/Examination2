@@ -1,6 +1,6 @@
 """Shell this is what the user see"""
 import cmd
-import dice, gameplay, Intellegance, user
+from pig import dice, gameplay, Intellegance, user
 
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice"""
