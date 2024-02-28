@@ -1,4 +1,4 @@
-from pig import User
+from pig import user
 import pickle
 
 
@@ -10,7 +10,7 @@ class Highscore:
 
     def new_player(self, user_name):
         """Creats and adds new player"""
-        new_user = User.User(user_name)
+        new_user = user.User(user_name)
         self.playerlist.append(new_user)
         return new_user
     
@@ -22,7 +22,7 @@ class Highscore:
     def check_highscore(self, user, player):
         """Checks if player exist in high score list"""
         if player.get_user_score() < user.get_user_score():
-            self.update_highscore_name_change(player, user)
+            self.update_highscore_list(player, user)
             return user
         return player
 

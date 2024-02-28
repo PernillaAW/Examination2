@@ -24,7 +24,7 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    @patch('pig.User.User')
+    @patch('pig.user.User')
     def test_toss_or_hold_low(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('low')
@@ -34,7 +34,7 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 1
         self.assertEqual(res, exp)
 
-    @patch('pig.User.User')
+    @patch('pig.user.User')
     def test_toss_or_hold_medium(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('medium')
@@ -44,7 +44,7 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 2
         self.assertEqual(res, exp)
 
-    @patch('pig.User.User.get_user_score')
+    @patch('pig.user.User.get_user_score')
     def test_toss_or_hold_hard(self, mock_get):
         computer = Intellegance.Intellegance()
         computer.level_choice('hard')
@@ -52,6 +52,15 @@ class TestIntelleganceClass(unittest.TestCase):
         mock_user.get_user_score.return_value = 20
         res = computer.toss_or_hold(mock_user)
         exp = 3
+        self.assertEqual(res, exp)
+
+    @patch('pig.dice.Dice')
+    def test_toss(self, mock_get):
+        computer = Intellegance.Intellegance()
+        mock_dice = mock_get.return_value
+        mock_dice.toss.return_value = [3, 4]
+        res = computer.toss(mock_dice)
+        exp = 7
         self.assertEqual(res, exp)
 
 
