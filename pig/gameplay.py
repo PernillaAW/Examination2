@@ -11,7 +11,7 @@ class Gameplay:
         self.computer_score = 0
         self.rounds = 0
         self.file = "saved_game.pickle"
-        self.highscore = highscore.Highscore
+        self.highscore = highscore.Highscore()
         self.user_1 = user.User
         self.user_2 = user.User
         self.users_turn = 1
@@ -51,21 +51,15 @@ class Gameplay:
 
     def check_if_user_exists(self, users):
         """Check if the user exists"""
+        self.highscore.read_from_file()
         user_name_1 = users[0]
         user_name_2 = users[1]
-        self.user_1 = self.highscore().check_list_current_user(user_name_1)
-        if self.user_1 is not None:
-            self.user_1.game_count += 1
-        else:
-            self.user_1 = user.User(user_name_1)
-            self.user_1.game_count += 1
+        self.user_1 = self.highscore.check_list(user_name_1)
+        self.user_1.game_count += 1
 
-        self.user_2 = self.highscore().check_list_current_user(user_name_2)
-        if self.user_2 is not None:
-            self.user_2.game_count += 2
-        else:
-            self.user_2 = user.User(user_name_2)
-            self.user_2.game_count += 1
+        self.user_2 = self.highscore.check_list(user_name_2)
+        self.user_2.game_count += 2
+
         users[0] = self.user_1
         users[1] = self.user_2
         return users
@@ -176,4 +170,6 @@ class Gameplay:
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved"""
         self.read_to_file(None, None)
-        self.highscore.read_to_file(user_to_save)
+        old_user_score = self.highscore.check_list(user_to_save)
+        self.highscore.check_highscore(user_to_save, old_user_score)
+        self.highscore.read_to_file()
