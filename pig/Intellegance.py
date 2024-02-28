@@ -9,11 +9,14 @@ class Intellegance:
         self.tosses = 0
 
     def level_choice(self, choise):
+        """This medthod is for chosing the right level on the intelegance if
+          you chose to play agaisnt the computer."""
         levels = {"low": 1, "medium": 2, "hard": 3}
         self.level = levels.get(choise)
         return self.level
 
     def calculate_result(self, a, b):
+        """This method will calculate the result of the dice toss"""
         if a == 1 and b == 1:
             result = 0
             self.score = 0
@@ -26,12 +29,15 @@ class Intellegance:
         return result
 
     def toss(self, die):
+        """This is the toss comand with in the intellagance"""
         self.tosses += 1
         a, b = die().toss()
         result = self.calculate_result(a, b)
         return result
 
     def toss_or_hold(self, player):
+        """This is the gameplay for intelagance. it hold all the methods and
+          calculations for playing"""
         self.tosses = 0
         die = dice.Dice
         if self.level == 1:
