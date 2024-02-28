@@ -2,6 +2,8 @@ from pig import dice
 
 
 class Intellegance:
+    """This class is used when you play against the computer. It has its own 
+    intellegance for playing thegame."""
 
     def __init__(self):
         self.level = 0

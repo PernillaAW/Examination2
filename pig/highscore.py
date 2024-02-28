@@ -1,8 +1,10 @@
-from pig import user
+"""This class handels Highscore."""
 import pickle
+import user
 
 
 class Highscore:
+    """All users are saved to the highscore list."""
 
     def __init__(self):
         self.file = "highscore.pickle"
@@ -15,23 +17,26 @@ class Highscore:
         return new_user
     
     def check_list(self, user):
+        """Chackes highscore list for user"""
         for player in self.playerlist:
             if player == user:
                 return player
 
     def check_highscore(self, user, player):
-        """Checks if player exist in high score list"""
+        """Compare current score with previous score in highscore"""
         if player.get_user_score() < user.get_user_score():
             self.update_highscore_list(player, user)
             return user
         return player
 
     def update_highscore_list(self, player, user):
+        """Will update the user in the list"""
         self.playerlist.remove(player)
         self.playerlist.append(user)
         return True
 
     def read_to_file(self):
+        """Reads the list to the binary file"""
         try:
             with open(self.file, 'wb') as f:
                 pickle.dump(self.playerlist, f)
@@ -39,6 +44,7 @@ class Highscore:
             print(f'Could not read file {self.file}')
 
     def read_from_file(self):
+        """Reads the list from the binary file"""
         try:
             with open(self.file, 'rb') as file:
                 self.playerlist = pickle.load(file)
@@ -46,6 +52,7 @@ class Highscore:
             print(f'Could not read file {self.file}')
 
     def sort_player_highscore(self):
+        """This will sort the highscore list after highscore and tosses"""
         self.playerlist.sort(key=lambda x: ([x.highscore], [x.toss_count]),
                              reverse=True)
 
