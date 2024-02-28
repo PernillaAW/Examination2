@@ -1,8 +1,10 @@
-from pig import User
+"""This class handels Highscore."""
 import pickle
+import user
 
 
 class Highscore:
+    """All users are saved to the highscore list."""
 
     def __init__(self):
         self.file = "highscore.pickle"
@@ -10,26 +12,31 @@ class Highscore:
 
     def new_player(self, user_name):
         """Creats and adds new player"""
-        new_user = User.User(user_name)
+        new_user = user.User(user_name)
         self.playerlist.append(new_user)
         return new_user
-
-    def check_list_current_user(self, user_name):
-        """Checks if player exist in high score list"""
+    
+    def check_list(self, user):
+        """Chackes highscore list for user"""
         for player in self.playerlist:
-            if player().get_user_name() == user_name:
+            if player == user:
                 return player
-        return self.new_player(user_name)
 
-    def check_list_add_remove(self, user, old_name):
-        for player in self.playerlist:
-            if player().get_user_name() == old_name:
-                self.playerlist.remove(player)
-                self.playerlist.append(user)
-                return True
-        return False
+    def check_highscore(self, user, player):
+        """Compare current score with previous score in highscore"""
+        if player.get_user_score() < user.get_user_score():
+            self.update_highscore_list(player, user)
+            return user
+        return player
+
+    def update_highscore_list(self, player, user):
+        """Will update the user in the list"""
+        self.playerlist.remove(player)
+        self.playerlist.append(user)
+        return True
 
     def read_to_file(self):
+        """Reads the list to the binary file"""
         try:
             with open(self.file, 'wb') as f:
                 pickle.dump(self.playerlist, f)
@@ -37,6 +44,7 @@ class Highscore:
             print(f'Could not read file {self.file}')
 
     def read_from_file(self):
+        """Reads the list from the binary file"""
         try:
             with open(self.file, 'rb') as file:
                 self.playerlist = pickle.load(file)
@@ -44,6 +52,7 @@ class Highscore:
             print(f'Could not read file {self.file}')
 
     def sort_player_highscore(self):
+        """This will sort the highscore list after highscore and tosses"""
         self.playerlist.sort(key=lambda x: ([x.highscore], [x.toss_count]),
                              reverse=True)
 

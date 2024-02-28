@@ -2,7 +2,7 @@
 import unittest
 import pickle
 from unittest.mock import MagicMock, Mock, patch
-from pig import gameplay
+import gameplay
 
 class TestGameplayClass (unittest.TestCase):
     """Class to test the class gameplay.py"""
@@ -61,12 +61,12 @@ class TestGameplayClass (unittest.TestCase):
         self.assertEqual(res, exp)
 
     @patch('pig.user.User')
-    def test_check_saved_game(self, mock_user_User):
+    def test_check_saved_game(self, mock_user):
         """Test if there is any games saved"""
         game = gameplay.Gameplay()
         users = ["player 1", "player 2"]
 
-        user_objects = [mock_user_User.return_value(user_name) for user_name in users]
+        user_objects = [mock_user.return_value(user_name) for user_name in users]
 
         mock_user_1 = user_objects[0]
         mock_user_1.get_user_name.return_value = "player 1"
@@ -93,9 +93,9 @@ class TestGameplayClass (unittest.TestCase):
     def test_update_user_score(self, mock_dice, mock_user):
         """Test to see it the user score will update"""
         mock_dice_inst = mock_dice.return_value
-        mock_user_inst = mock_user.return_value
         mock_toss = mock_dice_inst.toss.return_value = (2, 4)
-
+        
+        mock_user_inst = mock_user.return_value
         game = gameplay.Gameplay()
         initial_score = 10
         mock_user_inst.score = initial_score
@@ -106,4 +106,17 @@ class TestGameplayClass (unittest.TestCase):
 
         self.assertEqual(res, exp)
 
-    
+    def test_hold(self):
+        """Tests the hold method"""
+        mock_user_inst = MagicMock()
+        mock_user_1 = mock_user_inst
+        mock_user_2 = mock_user_inst
+
+        with patch('pig.gameplay.Gameplay.read_to_file', return_value=True) as mock_read_to_file:
+            game = gameplay.Gameplay()
+            game.user_1 = mock_user_1
+            game.user_2 = mock_user_2
+            res = game.hold()
+
+        self.assertIsInstance(res, mock_user_inst.__class__)
+        mock_read_to_file.assert_called_once()

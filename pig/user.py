@@ -1,4 +1,8 @@
+"""In thsi class we have the user"""
+
+
 class User:
+    """This class holds all user artibutes"""
 
     def __init__(self, user_name):
         self.user_name = user_name
@@ -9,6 +13,7 @@ class User:
         self.round_count = 0
 
     def change_name(self, new_name):
+        """Will update user name"""
         self.user_name = new_name
         return self.user_name
 
@@ -26,10 +31,12 @@ class User:
         return self.game_count
 
     def update_toss_count(self):
+        """Will update toss count"""
         self.toss_count += 1
         return self.toss_count
 
     def update_round_count(self, score):
+        """Will update round count"""
         if score == 0:
             self.round_count = 0
         else:
@@ -37,18 +44,24 @@ class User:
         return self.round_count
 
     def get_user_name(self):
+        """Will return user name"""
         return self.user_name
 
     def get_user_score(self):
+        """Will return user score"""
         return self.score
 
     def get_highscore(self):
+        """Will return user highscore"""
         return self.highscore
 
     def get_user_toss_count(self):
+        """Will return the number of tosses the user have done for the game"""
         return self.toss_count
 
     def cheat(self):
+        """This is a cheat to win but will not have you win 
+        the high score list"""
         self.score = 100
         self.toss_count = 1000
         return self.score
