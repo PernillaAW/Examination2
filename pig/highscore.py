@@ -1,4 +1,4 @@
-import user
+from pig import user
 import pickle
 
 

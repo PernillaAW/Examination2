@@ -1,6 +1,6 @@
 """ Roll a pair of dices """
 import random
-import user
+from pig import user
 
 class Dice:
     """Dice class, rolls two dices"""

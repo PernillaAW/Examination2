@@ -4,7 +4,7 @@
 ----- A die game where abit of strategy and cunning is needed -----
 
 """
-import shell
+from pig import shell
 def main():
     """ Start the program """
     print(__doc__)

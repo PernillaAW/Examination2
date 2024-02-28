@@ -1,4 +1,4 @@
-import dice
+from pig import dice
 
 
 class Intellegance:

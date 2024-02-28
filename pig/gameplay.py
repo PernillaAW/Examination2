@@ -1,6 +1,6 @@
 """Importing class modules and libraries"""
 import pickle
-import user, dice, highscore, Intellegance
+from pig import user, dice, highscore, Intellegance
 
 
 class Gameplay:
@@ -26,8 +26,7 @@ class Gameplay:
             pickle.dump(to_save, file)
             success = True
         return success
-
-       
+    
     #Checks if a current game exists
     def read_from_file(self):
         """Loads a saved game"""
