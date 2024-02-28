@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from pig import Highscore
+from pig import highscore
 
 
 class TestHighscoreClass(unittest.TestCase):
