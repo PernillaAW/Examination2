@@ -9,16 +9,19 @@ class TestIntelleganceClass(unittest.TestCase):
     """Test the class."""
 
     def test_init_object(self):
+        """This test initating inteligance object"""
         res = Intellegance.Intellegance()
         self.assertIsInstance(res, Intellegance.Intellegance)
 
     def test_level_choice(self):
+        """This test that level method choise works"""
         computer = Intellegance.Intellegance()
         res = computer.level_choice("low")
         exp = 1
         self.assertEqual(res, exp)
 
     def test_calculate_result(self):
+        """This tests the result calculation method for tossing the dice"""
         computer = Intellegance.Intellegance()
         res = computer.calculate_result(1, 1)
         exp = 0
@@ -26,6 +29,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     @patch('pig.user.User')
     def test_toss_or_hold_low(self, mock_get):
+        """This test method of toss and hold with level low"""
         computer = Intellegance.Intellegance()
         computer.level_choice('low')
         mock_user = mock_get.return_value
@@ -36,6 +40,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     @patch('pig.user.User')
     def test_toss_or_hold_medium(self, mock_get):
+        """This test method of toss and hold with level medium"""
         computer = Intellegance.Intellegance()
         computer.level_choice('medium')
         mock_user = mock_get.return_value
@@ -46,6 +51,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     @patch('pig.user.User.get_user_score')
     def test_toss_or_hold_hard(self, mock_get):
+        """This test method of toss and hold with level hard"""
         computer = Intellegance.Intellegance()
         computer.level_choice('hard')
         mock_user = mock_get.return_value
@@ -56,6 +62,7 @@ class TestIntelleganceClass(unittest.TestCase):
 
     @patch('pig.dice.Dice')
     def test_toss(self, mock_get):
+        """THis will test the toss method with in the toss and hold method"""
         computer = Intellegance.Intellegance()
         mock_dice = mock_get.return_value
         mock_dice.toss.return_value = [3, 4]
