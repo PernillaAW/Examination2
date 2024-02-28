@@ -27,40 +27,40 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 0
         self.assertEqual(res, exp)
 
-    @patch('pig.user.User')
+    @patch("pig.user.User")
     def test_toss_or_hold_low(self, mock_get):
         """This test method of toss and hold with level low."""
         computer = Intellegance.Intellegance()
-        computer.level_choice('low')
+        computer.level_choice("low")
         mock_user = mock_get.return_value
         mock_user.get_user_score.return_value = 10
         res = computer.toss_or_hold(mock_user)
         exp = 1
         self.assertEqual(res, exp)
 
-    @patch('pig.user.User')
+    @patch("pig.user.User")
     def test_toss_or_hold_medium(self, mock_get):
         """This test method of toss and hold with level medium."""
         computer = Intellegance.Intellegance()
-        computer.level_choice('medium')
+        computer.level_choice("medium")
         mock_user = mock_get.return_value
         mock_user.get_user_score.return_value = 20
         res = computer.toss_or_hold(mock_user)
         exp = 2
         self.assertEqual(res, exp)
 
-    @patch('pig.user.User.get_user_score')
+    @patch("pig.user.User.get_user_score")
     def test_toss_or_hold_hard(self, mock_get):
         """This test method of toss and hold with level hard."""
         computer = Intellegance.Intellegance()
-        computer.level_choice('hard')
+        computer.level_choice("hard")
         mock_user = mock_get.return_value
         mock_user.get_user_score.return_value = 20
         res = computer.toss_or_hold(mock_user)
         exp = 3
         self.assertEqual(res, exp)
 
-    @patch('pig.dice.Dice')
+    @patch("pig.dice.Dice")
     def test_tossing(self, mock_get):
         """This will test the toss method with in the toss and hold method."""
         computer = Intellegance.Intellegance()

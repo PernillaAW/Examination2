@@ -5,7 +5,7 @@ from pig import Dice
 
 class TestDiceClass(unittest.TestCase):
 
-    @patch('pig.dice.random')
+    @patch("pig.dice.random")
     def test_toss(self, mock_random):
         mock_random.randint.side_effect[2, 5]
         dice = Dice()

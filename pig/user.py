@@ -1,10 +1,11 @@
-"""In thsi class we have the user"""
+"""In thsi class we have the user."""
 
 
 class User:
-    """This class holds all user artibutes"""
+    """This class holds all user artibutes."""
 
     def __init__(self, user_name):
+        """Create object user."""
         self.user_name = user_name
         self.highscore = 0
         self.score = 0
@@ -13,12 +14,12 @@ class User:
         self.round_count = 0
 
     def change_name(self, new_name):
-        """Will update user name"""
+        """Will update user name."""
         self.user_name = new_name
         return self.user_name
 
     def update_score(self, score):
-        """Updete the current users score"""
+        """Updete the current users score."""
         if score == 0:
             self.score = 0
         else:
@@ -26,17 +27,17 @@ class User:
         return self.score
 
     def update_game_count(self, count):
-        """Update the current user game count"""
+        """Update the current user game count."""
         self.game_count += count
         return self.game_count
 
     def update_toss_count(self):
-        """Will update toss count"""
+        """Will update toss count."""
         self.toss_count += 1
         return self.toss_count
 
     def update_round_count(self, score):
-        """Will update round count"""
+        """Will update round count."""
         if score == 0:
             self.round_count = 0
         else:
@@ -44,28 +45,28 @@ class User:
         return self.round_count
 
     def get_user_name(self):
-        """Will return user name"""
+        """Will return user name."""
         return self.user_name
 
     def get_user_score(self):
-        """Will return user score"""
+        """Will return user score."""
         return self.score
 
     def get_highscore(self):
-        """Will return user highscore"""
+        """Will return user highscore."""
         return self.highscore
 
     def get_user_toss_count(self):
-        """Will return the number of tosses the user have done for the game"""
+        """Will return the number of tosses the user have done for the game."""
         return self.toss_count
 
     def cheat(self):
-        """This is a cheat to win but will not have you win 
-        the high score list"""
+        """Cheat to win."""
         self.score = 100
         self.toss_count = 1000
         return self.score
 
     def __str__(self) -> str:
-        return f'{self.user_name}\nTotalscore: {self.highscore}\n \
-            Current score: {self.score}'
+        """Will print user infromation."""
+        return f"{self.user_name}\nTotalscore: {self.highscore}\n \
+            Current score: {self.score}"

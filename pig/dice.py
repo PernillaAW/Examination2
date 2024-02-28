@@ -1,11 +1,13 @@
 """ Roll a pair of dices """
+
 import random
 
 
 class Dice:
     """Dice class, rolls two dices"""
+
     def __init__(self):
-        """Starts a random module """
+        """Starts a random module"""
         self.dice_low = 1
         self.dice_high = 6
 
