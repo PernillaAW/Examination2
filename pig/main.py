@@ -4,11 +4,15 @@
 ----- A die game where abit of strategy and cunning is needed -----
 
 """
+
 from pig import shell
+
+
 def main():
-    """ Start the program """
+    """Start the program"""
     print(__doc__)
     shell.Shell().cmdloop()
+
 
 if __name__ == "__main__":
     main()
