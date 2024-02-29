@@ -1,10 +1,12 @@
 """Importing class modules and libraries"""
+
 import pickle
 from pig import user, dice, highscore, Intellegance
 
 
 class Gameplay:
     """A class that handles the gameplay"""
+
     def __init__(self):
         self.computer_score = 0
         self.rounds = 0
@@ -17,21 +19,21 @@ class Gameplay:
         self.round_score = 0
         self.intelligence = Intellegance.Intellegance()
 
-    #Saves a file if user quits before game has ended
+    # Saves a file if user quits before game has ended
     def read_to_file(self, user_to_save_1, user_to_save_2):
         """Saves a game that is being played"""
         to_save = (user_to_save_1, user_to_save_2)
         success = False
-        with open(self.file, 'wb') as file:
+        with open(self.file, "wb") as file:
             pickle.dump(to_save, file)
             success = True
         return success
-    
-    #Checks if a current game exists
+
+    # Checks if a current game exists
     def read_from_file(self):
         """Loads a saved game"""
         try:
-            with open(self.file, 'rb') as file:
+            with open(self.file, "rb") as file:
                 user_to_load = ()
                 user_to_load = pickle.load(file)
                 return user_to_load
@@ -46,7 +48,7 @@ class Gameplay:
         user_name_2 = input("Enter Player 2 name: ")
         users = [user_name_1, user_name_2]
         return users
-    
+
     def check_if_user_exists(self, users):
         """Check if the user exists"""
         self.highscore.read_from_file()
@@ -55,12 +57,9 @@ class Gameplay:
         self.user_1 = self.highscore.check_list(user_name_1)
         self.user_1.game_count += 1
 
-        self.user_2 = self.highscore().check_list_current_user(user_name_2)
-        if self.user_2 is not None:
-            self.user_2.game_count += 2
-        else:
-            self.user_2 = user.User(user_name_2)
-            self.user_2.game_count += 1
+        self.user_2 = self.highscore.check_list(user_name_2)
+        self.user_2.game_count += 2
+
         users[0] = self.user_1
         users[1] = self.user_2
         return users
@@ -72,11 +71,15 @@ class Gameplay:
         try:
             user_to_load = self.read_from_file()
             if user_to_load[0] and user_to_load[1] is not None:
-                if user_to_load[0].get_user_name() == user_name_1 or \
-                   user_to_load[0].get_user_name() == user_name_2:
+                if (
+                    user_to_load[0].get_user_name() == user_name_1
+                    or user_to_load[0].get_user_name() == user_name_2
+                ):
                     self.user_1 = user_to_load[0]
-                if user_to_load[1].get_user_name() == user_name_1 or \
-                     user_to_load[1].get_user_name() == user_name_2:
+                if (
+                    user_to_load[1].get_user_name() == user_name_1
+                    or user_to_load[1].get_user_name() == user_name_2
+                ):
                     self.user_2 = user_to_load[1]
             else:
                 self.user_1 = user.User(users[0])
@@ -102,7 +105,7 @@ class Gameplay:
         dice_2 = dices[1]
         if self.users_turn == 1:
             self.user_1.update_toss_count()
-            if dice_1 == 1 and dice_2 ==1:
+            if dice_1 == 1 and dice_2 == 1:
                 self.user_1.update_score(0)
             if dice_1 == 1 or dice_2 == 1:
                 self.user_1.update_round_count(0)
@@ -116,7 +119,7 @@ class Gameplay:
             if self.user_1 is not None:
                 self.user_1.update_toss_count()
             self.user_2.update_toss_count()
-            if dice_1 == 1 and dice_2 ==1:
+            if dice_1 == 1 and dice_2 == 1:
                 self.user_2.update_score(0)
             if dice_1 == 1 or dice_2 == 1:
                 self.user_2.update_round_count(0)
@@ -133,7 +136,7 @@ class Gameplay:
         dice_2 = dices[1]
         self.user_1 = one_player_user
         self.user_1.update_toss_count()
-        if dice_1 == 1 and dice_2 ==1:
+        if dice_1 == 1 and dice_2 == 1:
             self.user_1.update_score(0)
         if dice_1 == 1 or dice_2 == 1:
             self.user_1.update_round_count(0)
@@ -145,7 +148,7 @@ class Gameplay:
         return self.user_1
 
     def hold(self):
-        """ Saves the users and changes turn """
+        """Saves the users and changes turn"""
         if self.users_turn == 1:
             self.users_turn = 2
             self.read_to_file(self.user_1, self.user_2)
@@ -155,9 +158,8 @@ class Gameplay:
             self.read_to_file(self.user_1, self.user_2)
             return self.user_1
 
-
     def hold_one_player(self):
-        """ Saves the users and changes turn """
+        """Saves the users and changes turn"""
         self.user_2 = user.User("computer")
         self.read_to_file(self.user_1, self.user_2)
         self.intelligence.toss_or_hold(self.user_1)
@@ -165,8 +167,9 @@ class Gameplay:
         print(self.intelligence)
         return self.user_1
 
-
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved"""
         self.read_to_file(None, None)
-        self.highscore.read_to_file(user_to_save)
+        old_user_score = self.highscore.check_list(user_to_save)
+        self.highscore.check_highscore(user_to_save, old_user_score)
+        self.highscore.read_to_file()
