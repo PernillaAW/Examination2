@@ -59,7 +59,7 @@ class Highscore:
     def sort_player_highscore(self):
         """Will sort the highscore list after highscore and tosses."""
         self.playerlist.sort(
-            key=lambda x: ([x.highscore], [x.toss_count]), reverse=False
+            key=lambda x: ([x.highscore], [x.toss_count]), reverse=True
         )
 
     def display(self):
