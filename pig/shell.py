@@ -131,5 +131,7 @@ class Shell(cmd.Cmd):
     def do_highscore(self, _):
         """Displays the highscore"""
         display_highscore = highscore.Highscore()
+        display_highscore.read_from_file()
+        display_highscore.sort_player_highscore()
         print(display_highscore.display())
 

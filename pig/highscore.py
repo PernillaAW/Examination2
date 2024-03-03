@@ -59,10 +59,12 @@ class Highscore:
     def sort_player_highscore(self):
         """Will sort the highscore list after highscore and tosses."""
         self.playerlist.sort(
-            key=lambda x: ([x.highscore], [x.toss_count]), reverse=True
+            key=lambda x: ([x.highscore], [x.toss_count]), reverse=False
         )
 
     def display(self):
         """Display every player on the list."""
+        print(f'{"Name":15s} {"Highscore":<20s} {"Tosses":<15s}')
         for x in self.playerlist:
-            print(x)
+            print(f'{x.user_name:15s} {x.score:<20.0f}'
+                  f'{x.toss_count:<15.0f}')
