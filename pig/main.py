@@ -7,7 +7,6 @@
 
 from pig import shell
 
-
 def main():
     """Start the program"""
     print(__doc__)

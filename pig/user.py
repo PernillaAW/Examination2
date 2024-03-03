@@ -68,5 +68,6 @@ class User:
 
     def __str__(self) -> str:
         """Will print user infromation."""
-        return f"{self.user_name}\nTotalscore: {self.highscore}\n \
-            Current score: {self.score}"
+        return f"{self.user_name}"
+        # \nTotalscore: {self.highscore}\n \
+        #     Current score: {self.score}"
