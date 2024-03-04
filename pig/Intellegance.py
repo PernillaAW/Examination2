@@ -71,8 +71,8 @@ class Intellegance:
 
             return 3
         
-    def computer_win(self, result):
-        if result >= 100:
+    def computer_win(self):
+        if self.score >= 100:
             print('Computer has won!')
             self.score = 0
             return True

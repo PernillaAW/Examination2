@@ -41,12 +41,12 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 9
         self.assertEqual(res, exp)
 
-    def test_calculate_result_score_over_100(self):
+    def test_computer_winner(self):
         """This tests the result calculation method for tossing the dice."""
         computer = Intellegance.Intellegance()
         with patch.object(computer, 'score', 100):
             assert computer.score == 100
-            res = computer.calculate_result(6, 3)
+            res = computer.computer_win()
             exp = True
             self.assertEqual(res, exp)
 
@@ -87,8 +87,7 @@ class TestIntelleganceClass(unittest.TestCase):
     def test_tossing(self, mock_get):
         """This will test the toss method with in the toss and hold method."""
         computer = Intellegance.Intellegance()
-        mock_dice = mock_get.toss.return_value = (3, 4)
-        res = computer.tossing(mock_dice)
+        res = computer.tossing(mock_get)
         exp = 7
         self.assertEqual(res, exp)
 
