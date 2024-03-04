@@ -135,6 +135,12 @@ class Shell(cmd.Cmd):
 
     def do_change_name(self, _):
         """Change user name"""
+        player_name = input('What is your user name: ')
+        player = self.highscore.check_list(player_name)
+        old_name = player
+        new_name = input('Whats your new user name: ')
+        player.change_name(new_name)
+        self.highscore.update_highscore_list(old_name, player)
 
     def do_display(self, _):
         """Will display the highscore list"""
