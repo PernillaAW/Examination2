@@ -20,11 +20,25 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 1
         self.assertEqual(res, exp)
 
-    def test_calculate_result(self):
-        """This tests the result calculation method for tossing the dice."""
+    def test_calculate_result_two_one(self):
+        """This tests the result calculation method getting two 1."""
         computer = Intellegance.Intellegance()
         res = computer.calculate_result(1, 1)
         exp = 0
+        self.assertEqual(res, exp)
+
+    def test_calculate_result_to_get_hold(self):
+        """This tests the result calculation method getting one 1."""
+        computer = Intellegance.Intellegance()
+        res = computer.calculate_result(1, 3)
+        exp = 1
+        self.assertEqual(res, exp)
+
+    def test_calculate_result(self):
+        """This tests the result calculation method for tossing the dice."""
+        computer = Intellegance.Intellegance()
+        res = computer.calculate_result(6, 3)
+        exp = 9
         self.assertEqual(res, exp)
 
     @patch("pig.user.User")

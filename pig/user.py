@@ -72,6 +72,4 @@ class User:
         self.toss_count = 1000
         return self.score
 
-    def __str__(self) -> str:
-        """Will print user infromation."""
-        return f"{self.user_name}\nHigh score: {self.highscore}\nTosses: {self.toss_count}"
+

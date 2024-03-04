@@ -3,7 +3,7 @@
 import unittest
 import pickle
 from unittest.mock import MagicMock, Mock, patch
-import gameplay
+from pig import gameplay
 
 
 class TestGameplayClass(unittest.TestCase):

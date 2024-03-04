@@ -5,11 +5,11 @@
 
 """
 
-from pig import shell
+import shell
 
 
 def main():
-    """Start the program"""
+    """Start the program."""
     print(__doc__)
     shell.Shell().cmdloop()
 
