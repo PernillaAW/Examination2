@@ -76,7 +76,7 @@ class Shell(cmd.Cmd):
                     f"no points this round. \n"
                 )
             elif dices[0] == 1 and dices[1] == 1:
-                print(f"\nNo, two ones, all {user.get_user_name()} points disapear. \n")
+                print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
             else:
                 if user.get_user_score() >= 100:
                     print(f"{user.get_user_name()} has won the game! Congratulations. ")

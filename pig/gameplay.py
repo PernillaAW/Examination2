@@ -1,39 +1,38 @@
-"""Importing class modules and libraries"""
+"""Importing class modules and libraries."""
 
 import pickle
 import user, dice, highscore, Intellegance
 
 
 class Gameplay:
-    """A class that handles the gameplay"""
-
+    """A class that handles the gameplay."""
     def __init__(self):
+        """Initial class variables"""
         self.computer_score = 0
         self.rounds = 0
-        self.file = "saved_game.pickle"
+        self.round_score = 0
         self.highscore = highscore.Highscore()
         self.user_1 = user.User
         self.user_2 = user.User
         self.users_turn = 1
         self.dice = dice.Dice()
-        self.round_score = 0
         self.intelligence = Intellegance.Intellegance()
 
     # Saves a file if user quits before game has ended
-    def read_to_file(self, user_to_save_1, user_to_save_2):
-        """Saves a game that is being played"""
+    def read_to_file(self,user_to_save_1, user_to_save_2):
+        """This saves the game that is being played."""
         to_save = (user_to_save_1, user_to_save_2)
         success = False
-        with open(self.file, "wb") as file:
+        with open("saved_game.pickle", "wb") as file:
             pickle.dump(to_save, file)
             success = True
         return success
 
     # Checks if a current game exists
     def read_from_file(self):
-        """Loads a saved game"""
+        """It loads a saved game."""
         try:
-            with open(self.file, "rb") as file:
+            with open("saved_game.pickle", "rb") as file:
                 user_to_load = ()
                 user_to_load = pickle.load(file)
                 return user_to_load
@@ -43,14 +42,14 @@ class Gameplay:
             return None, None
 
     def add_two_players(self):
-        """Adds two players to the game, if they already exists their score is loaded"""
+        """This method asks the player their."""
         user_name_1 = input("Enter Player 1 name: ")
         user_name_2 = input("Enter Player 2 name: ")
         users = [user_name_1, user_name_2]
         return users
 
     def check_if_user_exists(self, users):
-        """Check if the user exists"""
+        """Check if the user exists."""
         self.highscore.read_from_file()
         user_name_1 = users[0]
         user_name_2 = users[1]
@@ -65,7 +64,7 @@ class Gameplay:
         return users
 
     def check_saved_game(self, users):
-        """Check to see if there is a game saved"""
+        """Check to see if there is a game saved."""
         user_name_1 = users[0].get_user_name()
         user_name_2 = users[1].get_user_name()
         try:
@@ -86,16 +85,17 @@ class Gameplay:
         return users
 
     def computer_intelligence(self, choice):
+        """Choose computer intelligence."""
         self.intelligence.level_choice(choice)
 
     def toss(self):
-        """Where dices gets tossed, added up and saved s"""
+        """Where dices gets tossed, added up and saved."""
         dice_1, dice_2 = self.dice.toss()
         dices = (dice_1, dice_2)
         return dices
 
     def update_user_score(self, dices):
-        """Updates the score for user, also handles if user toss one or two one's"""
+        """Updates the score for user, also handles if user toss one or two one's."""
         dice_1 = dices[0]
         dice_2 = dices[1]
         if self.users_turn == 1:
@@ -126,7 +126,7 @@ class Gameplay:
             return self.user_2
 
     def update_user_score_one_player(self, dices, one_player_user):
-        """Updates the score for user, also handles if user toss one or two one's"""
+        """Updates the score for user, also handles if user toss one or two one's."""
         dice_1 = dices[0]
         dice_2 = dices[1]
         self.user_1 = one_player_user
@@ -143,18 +143,18 @@ class Gameplay:
         return self.user_1
 
     def hold(self):
-        """Saves the users and changes turn"""
+        """Saves the users and changes turn."""
         if self.users_turn == 1:
             self.users_turn = 2
             self.read_to_file(self.user_1, self.user_2)
             return self.user_2
-        elif self.users_turn == 2:
+        if self.users_turn == 2:
             self.users_turn = 1
             self.read_to_file(self.user_1, self.user_2)
             return self.user_1
 
     def hold_one_player(self):
-        """Saves the users and changes turn"""
+        """Saves the users and changes turn."""
         self.user_2 = user.User("computer")
         self.read_to_file(self.user_1, self.user_2)
         self.intelligence.toss_or_hold(self.user_1)
@@ -163,7 +163,7 @@ class Gameplay:
         return self.user_1
 
     def winner(self, user_to_save):
-        """When there is a winner their highscor shall be saved"""
+        """When there is a winner their highscor shall be saved."""
         self.read_to_file(None, None)
         old_user_score = self.highscore.check_list(user_to_save)
         self.highscore.check_highscore(user_to_save, old_user_score)
