@@ -41,6 +41,15 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 9
         self.assertEqual(res, exp)
 
+    def test_calculate_result_score_over_100(self):
+        """This tests the result calculation method for tossing the dice."""
+        computer = Intellegance.Intellegance()
+        with patch.object(computer, 'score', 100):
+            assert computer.score == 100
+            res = computer.calculate_result(6, 3)
+            exp = True
+            self.assertEqual(res, exp)
+
     @patch("pig.user.User")
     def test_toss_or_hold_low(self, mock_get):
         """This test method of toss and hold with level low."""
@@ -78,8 +87,7 @@ class TestIntelleganceClass(unittest.TestCase):
     def test_tossing(self, mock_get):
         """This will test the toss method with in the toss and hold method."""
         computer = Intellegance.Intellegance()
-        mock_dicee = mock_get.return_value
-        mock_dice = mock_dicee.toss.side_effect = 3, 4
+        mock_dice = mock_get.toss.return_value = (3, 4)
         res = computer.tossing(mock_dice)
         exp = 7
         self.assertEqual(res, exp)

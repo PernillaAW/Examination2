@@ -20,7 +20,6 @@ class Intellegance:
 
     def calculate_result(self, a, b):
         """Calculate the result of the dice toss."""
-        while self.score <= 100:
             if a == 1 and b == 1:
                 result = 0
                 self.score = 0
@@ -31,12 +30,9 @@ class Intellegance:
                 result = a + b
                 self.score += result
             return result
-        print('Computer has won!')
-        self.score = 0
-        return True
 
     def tossing(self, die):
-        """Toss comand within the intellagance."""
+        """Toss command within the intellagance."""
         self.tosses += 1
         a, b = die().toss()
         result = self.calculate_result(a, b)
@@ -48,9 +44,11 @@ class Intellegance:
         die = dice.Dice
         if self.level == 1:
             result = self.tossing(die)
+            self.computer_win(result)
             while result != 0 and self.tosses < 5 and result != 1:
                 result = self.tossing(die)
-                return 1
+                self.computer_win(result)
+            return 1
 
         elif self.level == 2:
             result = self.tossing(die)
@@ -59,8 +57,9 @@ class Intellegance:
                 and result != 0
                 and self.tosses < 8
                 or self.score < 10 + player.get_user_score()
-                ):
+                    ):
                 result = self.tossing(die)
+                self.computer_win(result)
             return 2
 
         elif self.level == 3:
@@ -68,7 +67,16 @@ class Intellegance:
             result = self.tossing(die)
             while self.score < 6 + player.get_user_score() or self.tosses < 5:
                 result = self.tossing(die)
+                self.computer_win(result)
+
             return 3
+        
+    def computer_win(self, result):
+        if result >= 100:
+            print('Computer has won!')
+            self.score = 0
+            return True
+
 
     def __str__(self) -> str:
         """Intellegance to print."""
