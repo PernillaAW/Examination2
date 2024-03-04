@@ -1,6 +1,6 @@
 """Intellegance module."""
 
-from pig import dice
+import dice
 
 
 class Intellegance:
@@ -20,16 +20,20 @@ class Intellegance:
 
     def calculate_result(self, a, b):
         """Calculate the result of the dice toss."""
-        if a == 1 and b == 1:
-            result = 0
-            self.score = 0
-        elif a == 1 or b == 1:
-            result = 1
-            self.score += 0
-        else:
-            result = a + b
-            self.score += result
-        return result
+        while self.score <= 100:
+            if a == 1 and b == 1:
+                result = 0
+                self.score = 0
+            elif a == 1 or b == 1:
+                result = 1
+                self.score += 0
+            else:
+                result = a + b
+                self.score += result
+            return result
+        print("computer has won the game!")
+        self.score = 0
+        return 0
 
     def tossing(self, die):
         """Toss comand within the intellagance."""
@@ -40,31 +44,33 @@ class Intellegance:
 
     def toss_or_hold(self, player):
         """Intellegance gameplay."""
-        self.tosses = 0
-        die = dice.Dice
-        if self.level == 1:
-            result = self.tossing(die)
-            while result != 0 and self.tosses < 5 and result != 1:
+        while self.score <= 100:
+            self.tosses = 0
+            die = dice.Dice
+            if self.level == 1:
                 result = self.tossing(die)
-            return 1
+                while result != 0 and self.tosses < 5 and result != 1:
+                    result = self.tossing(die)
+                return 1
 
-        elif self.level == 2:
-            result = self.tossing(die)
-            while (
-                result != 1
-                and result != 0
-                and self.tosses < 8
-                or self.score < 10 + player.get_user_score()
-            ):
+            elif self.level == 2:
                 result = self.tossing(die)
-            return 2
+                while (
+                    result != 1
+                    and result != 0
+                    and self.tosses < 8
+                    or self.score < 10 + player.get_user_score()
+                ):
+                    result = self.tossing(die)
+                return 2
 
-        elif self.level == 3:
-            die().dice_cheat()
-            result = self.tossing(die)
-            while self.score < 6 + player.get_user_score() or self.tosses < 5:
+            elif self.level == 3:
+                die().dice_cheat()
                 result = self.tossing(die)
-            return 3
+                while self.score < 6 + player.get_user_score() or self.tosses < 5:
+                    result = self.tossing(die)
+                return 3
+        print("computer has won the game!")
 
     def __str__(self) -> str:
         """Intellegance to print."""
