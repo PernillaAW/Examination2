@@ -84,7 +84,8 @@ class TestIntelleganceClass(unittest.TestCase):
         self.assertEqual(res, exp)
 
     @patch("pig.dice.Dice")
-    def test_tossing(self, mock_get):
+    @patch("pig.dice.Dice.toss", side_effect=[3, 4])
+    def test_tossing(self, mock_toss, mock_get):
         """This will test the toss method with in the toss and hold method."""
         computer = Intellegance.Intellegance()
         res = computer.tossing(mock_get)
