@@ -20,16 +20,16 @@ class Intellegance:
 
     def calculate_result(self, a, b):
         """Calculate the result of the dice toss."""
-            if a == 1 and b == 1:
-                result = 0
-                self.score = 0
-            elif a == 1 or b == 1:
-                result = 1
-                self.score += 0
-            else:
-                result = a + b
-                self.score += result
-            return result
+        if a == 1 and b == 1:
+            result = 0
+            self.score = 0
+        elif a == 1 or b == 1:
+            result = 1
+            self.score += 0
+        else:
+            result = a + b
+            self.score += result
+        return result
 
     def tossing(self, die):
         """Toss command within the intellagance."""
@@ -44,10 +44,10 @@ class Intellegance:
         die = dice.Dice
         if self.level == 1:
             result = self.tossing(die)
-            self.computer_win(result)
             while result != 0 and self.tosses < 5 and result != 1:
                 result = self.tossing(die)
-                self.computer_win(result)
+                if self.score >= 100:
+                    self.computer_win()
             return 1
 
         elif self.level == 2:
@@ -59,7 +59,8 @@ class Intellegance:
                 or self.score < 10 + player.get_user_score()
                     ):
                 result = self.tossing(die)
-                self.computer_win(result)
+                if self.score >= 100:
+                    self.computer_win()
             return 2
 
         elif self.level == 3:
@@ -67,16 +68,15 @@ class Intellegance:
             result = self.tossing(die)
             while self.score < 6 + player.get_user_score() or self.tosses < 5:
                 result = self.tossing(die)
-                self.computer_win(result)
-
+                if self.score >= 100:
+                    self.computer_win()
             return 3
-        
-    def computer_win(self, result):
-        if result >= 100:
-            print('Computer has won!')
-            self.score = 0
-            return True
-
+     
+    def computer_win(self):
+        """Resets computer score and returns to main menu"""
+        print('Computer has won!')
+        self.score = 0
+        return shell.Shell().cmdloop()
 
     def __str__(self) -> str:
         """Intellegance to print."""
