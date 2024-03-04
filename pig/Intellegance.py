@@ -44,10 +44,11 @@ class Intellegance:
         die = dice.Dice
         if self.level == 1:
             result = self.tossing(die)
-            self.computer_win()
             while result != 0 and self.tosses < 5 and result != 1:
                 result = self.tossing(die)
-                self.computer_win()
+                if self.score >= 100:
+                    self.computer_win()
+                    return shell.Shell().cmdloop()
             return 1
 
         elif self.level == 2:
@@ -59,7 +60,9 @@ class Intellegance:
                 or self.score < 10 + player.get_user_score()
                     ):
                 result = self.tossing(die)
-                self.computer_win()
+                if self.score >= 100:
+                    self.computer_win()
+                    return shell.Shell().cmdloop()
             return 2
 
         elif self.level == 3:
@@ -67,18 +70,17 @@ class Intellegance:
             result = self.tossing(die)
             while self.score < 6 + player.get_user_score() or self.tosses < 5:
                 result = self.tossing(die)
-                self.computer_win()
-
+                if self.score >= 100:
+                    self.computer_win()
+                    return shell.Shell().cmdloop()
             return 3
-        
-    def computer_win(self):
-        """If the computer wins"""
-        if self.score >= 100:
-            print('Computer has won!')
-            self.score = 0
-            self.tosses = 10
-            return shell.Shell().cmdloop()
 
+    def computer_win(self):
+        """If the computer wins."""
+        print('Computer has won!')
+        self.score = 0
+        self.tosses = 10
+        return True
 
     def __str__(self) -> str:
         """Intellegance to print."""
