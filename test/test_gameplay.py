@@ -234,19 +234,3 @@ class TestGameplayClass (unittest.TestCase):
         self.assertIsInstance(res, mock_user_inst.__class__)
         mock_read_to_file.assert_called_once()
     
-    # @patch('pig.user.User')
-    # def test_winner(self, mock_user):
-    #     """Test sp the winners score gets saved"""
-    #     mock_user_1 = mock_user.return_value
-    #     mock_read_to_file = MagicMock
-    #     mock_highscore_check = MagicMock
-    #     mock_highscore_check_list = MagicMock
-    #     mock_highscore_read_to_file = MagicMock
-    #     game = gameplay.Gameplay()
-    #     mock_user.return_value.score.return_value = 102
-    #     mock_user.return_value.score.return_value = 104
-    #     game.winner(mock_user_1)
-    #     self.assertTrue(mock_read_to_file.called)
-    #     self.assertTrue(mock_highscore_check.called)
-    #     self.assertTrue(mock_highscore_check_list.called)
-    #     self.assertTrue(mock_highscore_read_to_file.called)
