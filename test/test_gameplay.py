@@ -56,21 +56,20 @@ class TestGameplayClass (unittest.TestCase):
         res = game.add_two_players()
         self.assertEqual(res, ["player 1", "player 2"])
 
+    @patch('pig.highscore.Highscore.read_from_file')
     @patch('pig.user.User')
-    def test_check_if_user_exists(self, mock_user_User):
+    def test_check_if_user_exists(self, mock_user, mock_highscore):
         """Test if check against highscore list"""
+        mock_highscore.return_value = ""
         game = gameplay.Gameplay()
         users = ["player 1", "player 2"]
-
-        user_objects = [mock_user_User.return_value(user_name) for user_name in users]
+        user_objects = [mock_user.return_value(user_name) for user_name in users]
 
         mock_user_1 = user_objects[0]
         mock_user_1.get_user_name.return_value = "player 1"
         mock_user_2 = user_objects[1]
         mock_user_2.get_user_name.return_value = "player 2"
-
         res = game.check_if_user_exists(user_objects)
-
         exp = user_objects
         self.assertEqual(res, exp)
 
@@ -188,7 +187,7 @@ class TestGameplayClass (unittest.TestCase):
     def test_hold_user_1(self):
         """Tests the hold method"""
         game = gameplay.Gameplay()
-        with patch.object('users_turn', 1):
+        with patch.object(game, 'users_turn', 1):
             assert game.users_turn == 1
             mock_user_inst = MagicMock()
             mock_user_1 = mock_user_inst
@@ -206,7 +205,7 @@ class TestGameplayClass (unittest.TestCase):
     def test_hold_user_2(self):
         """Tests the hold method"""
         game = gameplay.Gameplay()
-        with patch.object('users_turn', 2):
+        with patch.object(game, 'users_turn', 2):
             assert game.users_turn == 2
             mock_user_inst = MagicMock()
             mock_user_1 = mock_user_inst
