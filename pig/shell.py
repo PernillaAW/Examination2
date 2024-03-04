@@ -1,7 +1,7 @@
 """Shell this is what the user see"""
 
 import cmd
-import dice, gameplay, Intellegance, user, highscore
+from pig import dice, gameplay, Intellegance, user, highscore
 
 
 class Shell(cmd.Cmd):
