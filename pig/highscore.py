@@ -39,6 +39,7 @@ class Highscore:
         """Will update the user in the list."""
         self.playerlist.remove(player)
         self.playerlist.append(current_user)
+        self.read_to_file()
         return True
 
     def read_to_file(self):

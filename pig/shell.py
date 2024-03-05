@@ -141,6 +141,7 @@ class Shell(cmd.Cmd):
     def do_change_name(self, _):
         """Change user name."""
         player_name = input('What is your user name: ')
+        self.highscore.read_from_file()
         player = self.highscore.check_list(player_name)
         old_name = player
         new_name = input('Whats your new user name: ')

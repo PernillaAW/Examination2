@@ -16,7 +16,7 @@ class User:
     def change_name(self, new_name):
         """Will update user name."""
         self.user_name = new_name
-        return self.user_name
+        return self
 
     def update_score(self, score):
         """Update the current users score."""
