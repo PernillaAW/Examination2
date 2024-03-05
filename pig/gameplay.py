@@ -1,7 +1,7 @@
 """Importing class modules and libraries."""
 
 import pickle
-import user, dice, highscore, Intellegance
+from pig import user, dice, highscore, Intellegance, shell
 
 
 class Gameplay:
@@ -172,9 +172,20 @@ class Gameplay:
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved."""
         self.read_to_file(None, None)
+<<<<<<< HEAD
+        old_user_score = self.highscore.check_list(user_to_save)
+        self.highscore.check_highscore(user_to_save, old_user_score)
+        self.highscore.read_to_file()
+        self.user_1.score = 0
+        self.user_2.score = 0
+        self.user_1.toss_count = 0
+        self.user_2.toss_count = 0
+        return shell.Shell().cmdloop()
+=======
         if user_to_save.get_user_toss_count != 0:
             user_to_save.update_highscore()
             old_user_score = self.highscore.check_list(user_to_save)
             self.highscore.check_highscore(user_to_save, old_user_score)
             self.highscore.read_to_file()
         return True
+>>>>>>> 94dde30e7037a7608f7ff98b49168b8bdddba02c

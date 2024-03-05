@@ -13,9 +13,11 @@ class Shell(cmd.Cmd):
     | players - to start game   |\n\
     | hold - pause current game |\n\
     | display - highscore list  |\n\
-    | exit                      |\n\
+    | change_name               |\n\
     | cheat - to win game       |\n\
     | rules                     |\n\
+    | ? - help                  |\n\
+    | exit                      |\n\
     |___________________________|\n"
     prompt = "(PIG)"
 
@@ -79,12 +81,17 @@ class Shell(cmd.Cmd):
                 print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
             else:
                 if user.get_user_score() >= 100:
+<<<<<<< HEAD
+                    print(f"{user.get_user_name()} has won the game! Congratulations.\n\n ")
+                    user.update_highscore()
+=======
                     print(f"{user.get_user_name()} has won the game! Congratulations.\n")
+>>>>>>> 94dde30e7037a7608f7ff98b49168b8bdddba02c
                     self.game.winner(user)
                     return self.cmdloop()
                 else:
                     print(
-                        f"\n{user.get_user_name()} has {user.get_user_score()} "
+                        f"\n{user.get_user_name()} has {user.get_user_score()} and {user.score} "
                         f"points this round, Toss or Hold?.\n"
                     )
         # Plays against computer
@@ -107,7 +114,11 @@ class Shell(cmd.Cmd):
             else:
                 if self.user_comp_1.get_user_score() >= 100:
                     print(
+<<<<<<< HEAD
+                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
+=======
                         f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n"
+>>>>>>> 94dde30e7037a7608f7ff98b49168b8bdddba02c
                     )
                     self.game.winner(self.user_comp_1)
                     return self.cmdloop()
