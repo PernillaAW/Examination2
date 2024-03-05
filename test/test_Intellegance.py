@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, patch
 from pig import Intellegance
 
 
@@ -20,12 +20,35 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 1
         self.assertEqual(res, exp)
 
-    def test_calculate_result(self):
-        """This tests the result calculation method for tossing the dice."""
+    def test_calculate_result_two_one(self):
+        """This tests the result calculation method getting two 1."""
         computer = Intellegance.Intellegance()
         res = computer.calculate_result(1, 1)
         exp = 0
         self.assertEqual(res, exp)
+
+    def test_calculate_result_to_get_hold(self):
+        """This tests the result calculation method getting one 1."""
+        computer = Intellegance.Intellegance()
+        res = computer.calculate_result(1, 3)
+        exp = 1
+        self.assertEqual(res, exp)
+
+    def test_calculate_result(self):
+        """This tests the result calculation method for tossing the dice."""
+        computer = Intellegance.Intellegance()
+        res = computer.calculate_result(6, 3)
+        exp = 9
+        self.assertEqual(res, exp)
+
+    def test_computer_winner(self):
+        """This tests the result calculation method for tossing the dice."""
+        computer = Intellegance.Intellegance()
+        with patch.object(computer, 'score', 100):
+            assert computer.score == 100
+            res = computer.computer_win()
+            exp = 10
+            self.assertEqual(res, exp)
 
     @patch("pig.user.User")
     def test_toss_or_hold_low(self, mock_get):
@@ -60,16 +83,18 @@ class TestIntelleganceClass(unittest.TestCase):
         exp = 3
         self.assertEqual(res, exp)
 
-    @patch("pig.dice.Dice")
-    def test_tossing(self, mock_get):
+    def test_tossing(self):
         """This will test the toss method with in the toss and hold method."""
         computer = Intellegance.Intellegance()
-        mock_dicee = mock_get.return_value
-        mock_dice = mock_dicee.toss.side_effect = 3, 4
+        mock_dice = MagicMock()
+        mock_die = mock_dice.return_value
+        mock_die.toss.return_value = (2, 5)
         res = computer.tossing(mock_dice)
         exp = 7
         self.assertEqual(res, exp)
 
+
+        
 
 if __name__ == "__main__":
     unittest.main()

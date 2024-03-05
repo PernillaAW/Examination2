@@ -80,11 +80,6 @@ class Gameplay:
                     or user_to_load[1].get_user_name() == user_name_2
                 ):
                     self.user_2 = user_to_load[1]
-            else:
-                self.user_1 = user.User(users[0])
-                self.user_2 = user.User(users[1])
-            users[0] = self.user_1
-            users[1] = self.user_2
         except FileNotFoundError:
             pass
         return users
@@ -173,6 +168,4 @@ class Gameplay:
         old_user_score = self.highscore.check_list(user_to_save)
         self.highscore.check_highscore(user_to_save, old_user_score)
         self.highscore.read_to_file()
-        print(f"{user_to_save.get_user_name()} has won the game! Congratulations."
-              f" You have scored {user_to_save.score} points this round and tossed "
-              f"{user_to_save.toss_count} times.")
+        return True

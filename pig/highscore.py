@@ -18,26 +18,27 @@ class Highscore:
         self.playerlist.append(new_user)
         return new_user
 
-    def check_list(self, user):
+    def check_list(self, current_user):
         """Chackes highscore list for user."""
         for player in self.playerlist:
-            if player == user:
+            if player == current_user:
                 return player
-            elif player.get_user_name() == user:
+            elif player.get_user_name() == current_user:
                 return player
-        return self.new_player(user)
+        return self.new_player(current_user)
 
-    def check_highscore(self, user, player):
+    def check_highscore(self, current_user, player):
         """Compare current score with previous score in highscore."""
-        if player.get_user_score() < user.get_user_score():
-            self.update_highscore_list(player, user)
-            return user
+        if player.get_highscore() < current_user.get_highscore():
+            if player.get_user_toss_count() > current_user:
+                self.update_highscore_list(player, current_user)
+                return current_user
         return player
 
-    def update_highscore_list(self, player, user):
+    def update_highscore_list(self, player, current_user):
         """Will update the user in the list."""
         self.playerlist.remove(player)
-        self.playerlist.append(user)
+        self.playerlist.append(current_user)
         return True
 
     def read_to_file(self):
@@ -59,12 +60,11 @@ class Highscore:
     def sort_player_highscore(self):
         """Will sort the highscore list after highscore and tosses."""
         self.playerlist.sort(
-            key=lambda x: ([x.highscore], [x.toss_count]), reverse=True
+            key=lambda x: (x.highscore, -x.toss_count), reverse=(True)
         )
 
     def display(self):
         """Display every player on the list."""
-        print(f'{"Name":15s} {"Highscore":<20s} {"Tosses":<15s}')
+        self.sort_player_highscore()
         for x in self.playerlist:
-            print(f'{x.user_name:15s} {x.score:<20.0f}'
-                  f'{x.toss_count:<15.0f}')
+            print(f'{x.get_user_name()}\n{x.get_highscore()}\n{x.get_user_toss_count()}')

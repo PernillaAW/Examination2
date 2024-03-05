@@ -1,6 +1,6 @@
 """Intellegance module."""
 
-from pig import dice
+from pig import dice, shell
 
 
 class Intellegance:
@@ -32,7 +32,7 @@ class Intellegance:
         return result
 
     def tossing(self, die):
-        """Toss comand within the intellagance."""
+        """Toss command within the intellagance."""
         self.tosses += 1
         a, b = die().toss()
         result = self.calculate_result(a, b)
@@ -42,29 +42,25 @@ class Intellegance:
         """Intellegance gameplay."""
         self.tosses = 0
         die = dice.Dice
-        if self.level == 1:
-            result = self.tossing(die)
-            while result != 0 and self.tosses < 5 and result != 1:
-                result = self.tossing(die)
-            return 1
-
-        elif self.level == 2:
-            result = self.tossing(die)
-            while (
-                result != 1
-                and result != 0
-                and self.tosses < 8
-                or self.score < 10 + player.get_user_score()
-            ):
-                result = self.tossing(die)
-            return 2
-
-        elif self.level == 3:
+        if self.level == 3:
             die().dice_cheat()
+        result = self.tossing(die)
+        while result != 0 \
+            and result != 1 \
+            and self.tosses < 4*self.level \
+                or self.score < self.level + player.get_user_score():
+            if self.score >= 100:
+                self.computer_win()
+                shell.Shell().cmdloop()
             result = self.tossing(die)
-            while self.score < 6 + player.get_user_score() or self.tosses < 5:
-                result = self.tossing(die)
-            return 3
+        return self.level
+
+    def computer_win(self):
+        """If the computer wins."""
+        print('Computer has won!')
+        self.score = 0
+        self.tosses = 10
+        return self.tosses
 
     def __str__(self) -> str:
         """Intellegance to print."""

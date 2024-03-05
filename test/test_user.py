@@ -47,6 +47,21 @@ class TestUserClass(unittest.TestCase):
         exp = 20
         self.assertEqual(res, exp)
 
+    def test_update_round_count_if_zero(self):
+        """Test update round count."""
+        player = user.User("G")
+        res = player.update_round_count(0)
+        exp = 0
+        self.assertEqual(res, exp)
+
+    def test_update_highscore(self):
+        """Test update user hihscore."""
+        player = user.User('G')
+        player.update_score(100)
+        res = player.update_highscore()
+        exp = 100
+        self.assertEqual(res, exp)
+
     def test_get_user_name(self):
         """Test if get user name returns user name."""
         player = user.User("G")

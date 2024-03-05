@@ -19,12 +19,17 @@ class User:
         return self.user_name
 
     def update_score(self, score):
-        """Updete the current users score."""
+        """Update the current users score."""
         if score == 0:
             self.score = 0
-        else:
-            self.score += score
+        self.score += score
         return self.score
+
+    def update_highscore(self):
+        """Update highscore after winning."""
+        self.highscore = self.score
+        self.score = 0
+        return self.highscore
 
     def update_game_count(self, count):
         """Update the current user game count."""
@@ -66,8 +71,4 @@ class User:
         self.toss_count = 1000
         return self.score
 
-    def __str__(self) -> str:
-        """Will print user infromation."""
-        return f"{self.user_name}"
-        # \nTotalscore: {self.highscore}\n \
-        #     Current score: {self.score}"
+

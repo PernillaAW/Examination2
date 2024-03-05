@@ -7,7 +7,16 @@ from pig import dice, gameplay, Intellegance, user, highscore
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice"""
 
-    intro = "This is a game of Pig \n"
+    intro = "This is a game of Pig \n\
+     ___________________________\n\
+    |            Menu           |\n\
+    | players - to start game   |\n\
+    | hold - pause current game |\n\
+    | display - highscore list  |\n\
+    | exit                      |\n\
+    | cheat - to win game       |\n\
+    | rules                     |\n\
+    |___________________________|\n"
     prompt = "(PIG)"
 
     def __init__(self):
@@ -19,6 +28,7 @@ class Shell(cmd.Cmd):
         self.intelligence = Intellegance.Intellegance()
         self.user_comp_1 = user.User
         self.computer = user.User
+        self.highscore = highscore.Highscore()
 
     def do_players(self, arg):
         """
@@ -44,9 +54,9 @@ class Shell(cmd.Cmd):
             user_1 = users[0]
             user_2 = users[1]
             print(
-                f"Welcome {user_1.user_name} and "
-                f"{user_2.user_name}!   {user_1.user_name} starts. Write "
-                f"toss to start the game."
+                f"Welcome \n{user_1.get_user_name()} and "
+                f"\n{user_2.get_user_name()} \n{user_1.get_user_name()} starts."
+                f"\nWrite toss to start the game."
             )
             self.two_player = "Yes"
         else:
@@ -62,19 +72,21 @@ class Shell(cmd.Cmd):
             print(f"Dices rolled: {dices[0]}, {dices[1]}")
             if dices[0] == 1 or dices[1] == 1:
                 print(
-                    f"\nBad luck, you rolled a 1. {user.get_user_name()}"
-                    f" no points this round. \n"
+                    f"\nBad luck, you rolled a 1. {user.get_user_name()} "
+                    f"no points this round. \n"
                 )
             elif dices[0] == 1 and dices[1] == 1:
                 print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
             else:
                 if user.get_user_score() >= 100:
+                    print(f"{user.get_user_name()} has won the game! Congratulations. ")
+                    user.update_highscore()
                     self.game.winner(user)
                     return
                 else:
                     print(
-                        f"\n{user.get_user_name()} has {user.round_count}"
-                        f" points this round, Toss or Hold?.\n"
+                        f"\n{user.get_user_name()} has {user.get_user_score()} "
+                        f"points this round, Toss or Hold?.\n"
                     )
         # Plays against computer
         elif self.two_player == "No":
@@ -94,13 +106,17 @@ class Shell(cmd.Cmd):
                 )
                 self.game.hold_one_player()
             else:
-                if self.user_comp_1.get_score() >= 100:
+                if self.user_comp_1.get_user_score() >= 100:
+                    print(
+                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations."
+                    )
+                    self.user_comp_1.update_highscore()
                     self.game.winner(self.user_comp_1)
                     return
                 else:
                     print(
                         f"\n{self.user_comp_1.get_user_name()} has "
-                        f"{self.user_comp_1.round_count()}"
+                        f"{self.user_comp_1.get_user_score()}"
                         f" points this round, Toss or Hold?.\n"
                     )
         else:
@@ -111,27 +127,33 @@ class Shell(cmd.Cmd):
         if self.two_player == "Yes":
             user = self.game.hold()
             print(
-                f"\n{user.user_name}'s turn to play. Your total score is "
-                f"{user.score} and you have tossed {user.toss_count} times.\n"
+                f"\n{user.get_user_name()}'s turn to play. Your total score is "
+                f"{user.get_user_score()} and you have tossed {user.get_user_toss_count()} times.\n"
             )
         elif self.two_player == "No":
             self.game.hold_one_player()
 
-    def do_quit(self, _):
-        """Quits the game"""
+    def do_change_name(self, _):
+        """Change user name"""
+        player_name = input('What is your user name: ')
+        player = self.highscore.check_list(player_name)
+        old_name = player
+        new_name = input('Whats your new user name: ')
+        player.change_name(new_name)
+        self.highscore.update_highscore_list(old_name, player)
+
+    def do_display(self, _):
+        """Will display the highscore list"""
+        print('High score list')
+        self.highscore.read_from_file()
+        self.highscore.display()
+
+    def do_exit(self, _):
+        """Exits the game"""
+        self.highscore.read_to_file()
         return True
 
     def do_cheat(self, _):
         """A cheat to directly win the game (for testing purposes only)"""
         print("Cheater.. cheater..")
-        cheater =  user.User("Cheater")
-        cheater.cheat()
-        self.game.winner(cheater)
-    
-    def do_highscore(self, _):
-        """Displays the highscore"""
-        display_highscore = highscore.Highscore()
-        display_highscore.read_from_file()
-        display_highscore.sort_player_highscore()
-        print(display_highscore.display())
-
+        self.game.winner(_)
