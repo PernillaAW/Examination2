@@ -1,6 +1,6 @@
 """intellegance module."""
 
-from pig import dice, shell
+import dice, shell
 
 
 class Intellegance:
@@ -50,12 +50,16 @@ class Intellegance:
         while result != 0 \
                 and self.tosses < (4 * self.level) \
                 and self.score < (self.level * 4 + player.get_user_score()):
-            if self.score >= 100:
-                self.computer_win()
-                shell.Shell().cmdloop()
             result = self.tossing(die)
+            self.is_winner()
             print(f'second {result}')
         return self.level
+
+    def is_winner(self):
+        """Test to see if winner."""
+        if self.score >= 100:
+            self.computer_win()
+            shell.Shell().cmdloop()
 
     def computer_win(self):
         """If the computer wins."""
