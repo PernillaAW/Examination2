@@ -1,11 +1,11 @@
 """Shell this is what the user see"""
 
 import cmd
-from pig import dice, gameplay, Intellegance, user, highscore
+from pig import dice, gameplay, intellegance, user, highscore
 
 
 class Shell(cmd.Cmd):
-    """The introduction to a command driven game of dice"""
+    """The introduction to a command driven game of dice."""
 
     intro = "This is a game of Pig \n\
      ___________________________\n\
@@ -13,26 +13,28 @@ class Shell(cmd.Cmd):
     | players - to start game   |\n\
     | hold - pause current game |\n\
     | display - highscore list  |\n\
-    | exit                      |\n\
+    | change_name               |\n\
     | cheat - to win game       |\n\
     | rules                     |\n\
+    | ? - help                  |\n\
+    | exit                      |\n\
     |___________________________|\n"
     prompt = "(PIG)"
 
     def __init__(self):
-        """Instansiate the object"""
+        """Instansiate the object."""
         super().__init__()
         self.dice = dice.Dice()
         self.game = gameplay.Gameplay()
         self.two_player = ""
-        self.intelligence = Intellegance.Intellegance()
+        self.intelligence = intellegance.Intellegance()
         self.user_comp_1 = user.User
         self.computer = user.User
         self.highscore = highscore.Highscore()
 
     def do_players(self, arg):
         """
-        User decides to play against computer or another player
+        User decides to play against computer or another player.
         'players 1' - Play against the computer
         'players 2' - Play against a friend
         """
@@ -64,7 +66,7 @@ class Shell(cmd.Cmd):
         return
 
     def do_toss(self, _):
-        """Toss the dices for you"""
+        """Toss the dices for you."""
         error_msg = "Please enter 'player 1' or 'player 2'."
         dices = self.game.toss()
         if self.two_player == "Yes":
@@ -79,13 +81,14 @@ class Shell(cmd.Cmd):
                 print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
             else:
                 if user.get_user_score() >= 100:
-                    print(f"{user.get_user_name()} has won the game! Congratulations. ")
+                    print(f"{user.get_user_name()} has won the game! Congratulations.\n\n ")
                     user.update_highscore()
+
                     self.game.winner(user)
-                    return
+                    return self.cmdloop()
                 else:
                     print(
-                        f"\n{user.get_user_name()} has {user.get_user_score()} "
+                        f"\n{user.get_user_name()} has {user.get_user_score()} and {user.score} "
                         f"points this round, Toss or Hold?.\n"
                     )
         # Plays against computer
@@ -108,11 +111,10 @@ class Shell(cmd.Cmd):
             else:
                 if self.user_comp_1.get_user_score() >= 100:
                     print(
-                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations."
+                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
                     )
-                    self.user_comp_1.update_highscore()
                     self.game.winner(self.user_comp_1)
-                    return
+                    return self.cmdloop()
                 else:
                     print(
                         f"\n{self.user_comp_1.get_user_name()} has "
@@ -123,7 +125,7 @@ class Shell(cmd.Cmd):
             print(error_msg)
 
     def do_hold(self, _):
-        """Holds the game and start tallys the score and saves it"""
+        """Hold the game and start tallys the score and saves it."""
         if self.two_player == "Yes":
             user = self.game.hold()
             print(
@@ -134,7 +136,7 @@ class Shell(cmd.Cmd):
             self.game.hold_one_player()
 
     def do_change_name(self, _):
-        """Change user name"""
+        """Change user name."""
         player_name = input('What is your user name: ')
         player = self.highscore.check_list(player_name)
         old_name = player
@@ -143,17 +145,16 @@ class Shell(cmd.Cmd):
         self.highscore.update_highscore_list(old_name, player)
 
     def do_display(self, _):
-        """Will display the highscore list"""
+        """Will display the highscore list."""
         print('High score list')
         self.highscore.read_from_file()
         self.highscore.display()
 
     def do_exit(self, _):
-        """Exits the game"""
-        self.highscore.read_to_file()
+        """Exit the game."""
         return True
 
     def do_cheat(self, _):
-        """A cheat to directly win the game (for testing purposes only)"""
+        """Cheat to win the game (for testing purposes only)."""
         print("Cheater.. cheater..")
         self.game.winner(_)

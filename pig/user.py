@@ -70,5 +70,3 @@ class User:
         self.score = 100
         self.toss_count = 1000
         return self.score
-
-

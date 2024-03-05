@@ -111,7 +111,7 @@ class TestGameplayClass (unittest.TestCase):
         exp = user_objects
         self.assertEqual(res, exp)
 
-    @patch('pig.Intellegance.Intellegance.level_choice')
+    @patch('pig.intellegance.Intellegance.level_choice')
     def test_computer_intelligence(self, mock_choice): 
         """Test so that the call for intelligence works""" 
         game = gameplay.Gameplay()
@@ -218,18 +218,18 @@ class TestGameplayClass (unittest.TestCase):
             self.assertIsInstance(res, mock_user_inst.__class__)
             mock_read_to_file.assert_called_once()
 
-    def test_hold_one_player(self):
+    @patch('pig.user.User')
+    def test_hold_one_player(self, mock_user):
         """Tests the hold method when one player plays the game"""
-        mock_user_inst = MagicMock()
-        mock_user_1 = mock_user_inst
-        mock_user_2 = mock_user_inst
+        mock_users = mock_user.return_value
+        mock_users.get_user_score.return_value = 10
 
         with patch('pig.gameplay.Gameplay.read_to_file', return_value=True) as mock_read_to_file:
             game = gameplay.Gameplay()
-            game.user_1 = mock_user_1
-            game.user_2 = mock_user_2
+            game.user_1 = mock_users
+            game.user_2 = mock_users
             res = game.hold_one_player()
 
-        self.assertIsInstance(res, mock_user_inst.__class__)
+        self.assertIsInstance(res, mock_users.__class__)
         mock_read_to_file.assert_called_once()
     
