@@ -1,7 +1,7 @@
 """Highscore module."""
 
 import pickle
-from pig import user
+import user
 
 
 class Highscore:

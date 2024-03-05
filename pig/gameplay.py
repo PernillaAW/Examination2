@@ -1,7 +1,7 @@
 """Importing class modules and libraries."""
 
 import pickle
-from pig import user, dice, highscore, Intellegance
+import user, dice, highscore, Intellegance
 
 
 class Gameplay:
@@ -19,14 +19,21 @@ class Gameplay:
         self.intelligence = Intellegance.Intellegance()
 
     # Saves a file if user quits before game has ended
-    def read_to_file(self,user_to_save_1, user_to_save_2):
+    def read_to_file(self, user_to_save_1, user_to_save_2):
         """This saves the game that is being played."""
-        to_save = (user_to_save_1, user_to_save_2)
-        success = False
-        with open("saved_game.pickle", "wb") as file:
-            pickle.dump(to_save, file)
-            success = True
-        return success
+        try:
+            to_save = (user_to_save_1, user_to_save_2)
+            success = False
+            with open("saved_game.pickle", "wb") as file:
+                pickle.dump(to_save, file)
+                success = True
+            return success
+        except FileNotFoundError:
+            print(f"Could not find file {file}")
+        except pickle.PickleError:
+            print("Could not pickle")
+        except PermissionError:
+            print(f"Could not access file {file}")
 
     # Checks if a current game exists
     def read_from_file(self):
@@ -57,7 +64,7 @@ class Gameplay:
         self.user_1.game_count += 1
 
         self.user_2 = self.highscore.check_list(user_name_2)
-        self.user_2.game_count += 2
+        self.user_2.game_count += 1
 
         users[0] = self.user_1
         users[1] = self.user_2
