@@ -23,14 +23,14 @@ class Highscore:
         for player in self.playerlist:
             if player == current_user:
                 return player
-            elif player.get_user_name() == current_user.get_user_name():
+            elif player.get_user_name() == current_user:
                 return player
         return self.new_player(current_user)
 
     def check_highscore(self, current_user, player):
         """Compare current score with previous score in highscore."""
         if player.get_highscore() < current_user.get_highscore():
-            if player.get_user_toss_count() > current_user.get_user_toss_count():
+            if player.get_user_toss_count() > current_user:
                 self.update_highscore_list(player, current_user)
                 return current_user
         return player

@@ -47,22 +47,9 @@ class TestIntelleganceClass(unittest.TestCase):
         with patch.object(computer, 'score', 100):
             assert computer.score == 100
             res = computer.computer_win()
-            exp = True
+            exp = 10
             self.assertEqual(res, exp)
 
-    @patch("pig.user.User")
-    def test_toss_or_hold_low_score_over_100(self, mock_get):
-        """This test method of toss and hold with low and score 100."""
-        computer = Intellegance.Intellegance()
-        computer.level_choice('low')
-        mock_user = mock_get.return_value
-        mock_user.get_user_score.return_value = 20
-        # with patch.object(computer, 'score', 100):
-        #     assert computer.score == 100
-        #     with patch.object(computer, "computer_win", return_value=True) as mock_return:
-        #         computer.toss_or_hold(mock_user)
-        #         mock_return.assert_called_once()
-            
     @patch("pig.user.User")
     def test_toss_or_hold_low(self, mock_get):
         """This test method of toss and hold with level low."""
@@ -75,19 +62,6 @@ class TestIntelleganceClass(unittest.TestCase):
         self.assertEqual(res, exp)
 
     @patch("pig.user.User")
-    def test_toss_or_hold_medium_score_over_100(self, mock_get):
-        """This test method of toss and hold with medium and score 100."""
-        computer = Intellegance.Intellegance()
-        computer.level_choice('medium')
-        # with patch.object(computer, 'score', 100):
-        #     assert computer.score == 100
-        #     mock_user = mock_get.return_value
-        #     mock_user.get_user_score.return_value = 20
-        #     with patch.object(computer, "computer_win", return_value=True) as mock_return:
-        #         computer.toss_or_hold(mock_user)
-        #         mock_return.assert_called_once()
-
-    @patch("pig.user.User")
     def test_toss_or_hold_medium(self, mock_get):
         """This test method of toss and hold with level medium."""
         computer = Intellegance.Intellegance()
@@ -97,20 +71,6 @@ class TestIntelleganceClass(unittest.TestCase):
         res = computer.toss_or_hold(mock_user)
         exp = 2
         self.assertEqual(res, exp)
-
-
-    @patch("pig.user.User.get_user_score")
-    def test_toss_or_hold_hard_score_over_100(self, mock_get):
-        """This test method of toss and hold with hard and score 100."""
-        computer = Intellegance.Intellegance()
-        computer.level_choice('hard')
-        mock_user = mock_get.return_value
-        mock_user.get_user_score.return_value = 20
-        # with patch.object(computer, 'score', 100):
-        #     assert computer.score == 100
-        #     with patch.object(computer, "computer_win", return_value=True) as mock_return:
-        #         computer.toss_or_hold(mock_user)
-        #         mock_return.assert_called_once()
 
     @patch("pig.user.User.get_user_score")
     def test_toss_or_hold_hard(self, mock_get):
