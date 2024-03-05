@@ -24,8 +24,7 @@ class Intellegance:
             result = 0
             self.score = 0
         elif a == 1 or b == 1:
-            result = 1
-            self.score += 0
+            result = 0
         else:
             result = a + b
             self.score += result
@@ -34,6 +33,10 @@ class Intellegance:
     def tossing(self, die):
         """Toss command within the intellagance."""
         self.tosses += 1
+        if self.level == 3:
+            a, b = die().dice_cheat()
+            result = self.calculate_result(a, b)
+            return result
         a, b = die().toss()
         result = self.calculate_result(a, b)
         return result
@@ -42,17 +45,16 @@ class Intellegance:
         """Intellegance gameplay."""
         self.tosses = 0
         die = dice.Dice
-        if self.level == 3:
-            die().dice_cheat()
         result = self.tossing(die)
+        print(f'first {result}')
         while result != 0 \
-            and result != 1 \
-            or self.tosses < 4 * self.level \
-                and self.score < self.level + player.get_user_score():
+                and self.tosses < (4 * self.level) \
+                and self.score < (self.level * 4 + player.get_user_score()):
             if self.score >= 100:
                 self.computer_win()
                 shell.Shell().cmdloop()
             result = self.tossing(die)
+            print(f'second {result}')
         return self.level
 
     def computer_win(self):

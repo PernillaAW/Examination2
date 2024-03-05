@@ -16,8 +16,8 @@ class TestintelleganceClass(unittest.TestCase):
     def test_level_choice(self):
         """This test that level method choise works."""
         computer = intellegance.Intellegance()
-        res = computer.level_choice("low")
-        exp = 1
+        res = computer.level_choice("hard")
+        exp = 3
         self.assertEqual(res, exp)
 
     def test_calculate_result_two_one(self):
@@ -31,7 +31,7 @@ class TestintelleganceClass(unittest.TestCase):
         """This tests the result calculation method getting one 1."""
         computer = intellegance.Intellegance()
         res = computer.calculate_result(1, 3)
-        exp = 1
+        exp = 0
         self.assertEqual(res, exp)
 
     def test_calculate_result(self):
@@ -81,9 +81,10 @@ class TestintelleganceClass(unittest.TestCase):
         exp = 3
         self.assertEqual(res, exp)
 
-    def test_tossing(self):
+    def test_tossing_level_low(self):
         """This will test the toss method with in the toss and hold method."""
         computer = intellegance.Intellegance()
+        computer.level_choice(1)
         mock_dice = MagicMock()
         mock_die = mock_dice.return_value
         mock_die.toss.return_value = (2, 5)
@@ -91,8 +92,17 @@ class TestintelleganceClass(unittest.TestCase):
         exp = 7
         self.assertEqual(res, exp)
 
+    def test_tossing_level_hard(self):
+        """This will test the toss method with in the toss and hold method."""
+        computer = intellegance.Intellegance()
+        computer.level_choice('hard')
+        mock_dice = MagicMock()
+        mock_die = mock_dice.return_value
+        mock_die.dice_cheat.return_value = (2, 8)
+        res = computer.tossing(mock_dice)
+        exp = 10
+        self.assertEqual(res, exp)
 
-        
 
 if __name__ == "__main__":
     unittest.main()
