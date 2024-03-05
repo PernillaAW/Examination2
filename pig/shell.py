@@ -7,6 +7,7 @@ from pig import dice, gameplay, intellegance, user, highscore
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice."""
 
+
     intro = "This is a game of Pig \n\
      ___________________________\n\
     |            Menu           |\n\
@@ -47,6 +48,8 @@ class Shell(cmd.Cmd):
             user_name = input("What is your name?: ")
             self.user_comp_1 = user.User(user_name)
             self.computer = user.User("Computer")
+            self.user_comp_1 = self.game.check_if_user_exists_one_player(self.user_comp_1)
+            self.user_comp_1 = self.game.check_saved_game_one_player(self.user_comp_1)
             self.two_player = "No"
         elif arg == "2":
             print("You have choosen to play against another player.")

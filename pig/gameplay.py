@@ -70,6 +70,15 @@ class Gameplay:
         users[0] = self.user_1
         users[1] = self.user_2
         return users
+    
+    def check_if_user_exists_one_player(self, user_one):
+        """Check if the user exists."""
+        self.highscore.read_from_file()
+
+        self.user_1 = self.highscore.check_list(user_one.user_name)
+        self.user_1.game_count += 1
+
+        return self.user_1
 
     def check_saved_game(self, users):
         """Check to see if there is a game saved."""
@@ -91,6 +100,20 @@ class Gameplay:
         except FileNotFoundError:
             pass
         return users
+
+    def check_saved_game_one_player(self, user_one):
+        """Check to see if there is a game saved."""
+        user_name_1 = user_one.get_user_name()
+        try:
+            user_to_load = self.read_from_file()
+            if user_to_load[0] or user_to_load[1] is not None:
+                if user_to_load[0].get_user_name() == user_name_1:
+                    self.user_1 = user_to_load[0]
+                elif user_to_load[1].get_user_name() == user_name_1:
+                    self.user_2 = user_to_load[1]
+        except FileNotFoundError:
+            pass
+        return user_one
 
     def computer_intelligence(self, choice):
         """Choose computer intelligence."""
