@@ -66,5 +66,7 @@ class Highscore:
     def display(self):
         """Display every player on the list."""
         self.sort_player_highscore()
+        print(f'{"User":<25s}{"Highscore":<25s}{"Toss Count":<25s}')
         for x in self.playerlist:
-            print(f'{x.get_user_name()}\n{x.get_highscore()}\n{x.get_user_toss_count()}')
+            print(f'{x.get_user_name():<25s}{x.get_highscore():<25.0f}'
+                  f'{x.get_user_toss_count():<25.0f}')

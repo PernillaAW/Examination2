@@ -57,7 +57,7 @@ class Gameplay:
         self.user_1.game_count += 1
 
         self.user_2 = self.highscore.check_list(user_name_2)
-        self.user_2.game_count += 2
+        self.user_2.game_count += 1
 
         users[0] = self.user_1
         users[1] = self.user_2

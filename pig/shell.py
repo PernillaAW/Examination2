@@ -13,9 +13,11 @@ class Shell(cmd.Cmd):
     | players - to start game   |\n\
     | hold - pause current game |\n\
     | display - highscore list  |\n\
-    | exit                      |\n\
+    | change_name               |\n\
     | cheat - to win game       |\n\
     | rules                     |\n\
+    | ? - help                  |\n\
+    | exit                      |\n\
     |___________________________|\n"
     prompt = "(PIG)"
 
