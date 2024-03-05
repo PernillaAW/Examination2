@@ -1,7 +1,7 @@
 """Shell this is what the user see"""
 
 import cmd
-from pig import dice, gameplay, intellegance, user, highscore
+import dice, gameplay, intellegance, user, highscore
 
 
 class Shell(cmd.Cmd):
@@ -116,6 +116,7 @@ class Shell(cmd.Cmd):
                     print(
                         f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
                     )
+                    self.user_comp_1.update_highscore()
                     self.game.winner(self.user_comp_1)
                     return self.cmdloop()
                 else:
@@ -161,4 +162,4 @@ class Shell(cmd.Cmd):
     def do_cheat(self, _):
         """Cheat to win the game (for testing purposes only)."""
         print("Cheater.. cheater..")
-        self.game.winner(_)
+        self.game.cheater()
