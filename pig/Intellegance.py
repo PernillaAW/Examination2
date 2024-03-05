@@ -46,6 +46,7 @@ class Intellegance:
         self.tosses = 0
         die = dice.Dice
         result = self.tossing(die)
+        self.is_winner()
         print(f'first {result}')
         while result != 0 \
                 and self.tosses < (4 * self.level) \

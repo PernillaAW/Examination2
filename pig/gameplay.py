@@ -1,7 +1,7 @@
 """Importing class modules and libraries."""
 
 import pickle
-from pig import user, dice, highscore, intellegance, shell
+import user, dice, highscore, intellegance, shell
 
 
 class Gameplay:
@@ -192,6 +192,13 @@ class Gameplay:
         self.user_2.update_score(self.intelligence.score)
         print(self.intelligence)
         return self.user_1
+
+    def cheater(self):
+        """Cheat to win"""
+        self.user_1.cheat()
+        self.user_1.update_highscore()
+        self.winner(self.user_1)
+        return self.user_1.get_highscore
 
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved."""
