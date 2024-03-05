@@ -1,6 +1,6 @@
-"""Intellegance module."""
+"""intellegance module."""
 
-import dice, shell
+from pig import dice, shell
 
 
 class Intellegance:

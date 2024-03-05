@@ -5,7 +5,8 @@
 
 """
 
-import shell
+from pig import shell
+
 
 def main():
     """Start the program."""

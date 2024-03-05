@@ -1,13 +1,14 @@
 """Importing class modules and libraries."""
 
 import pickle
-from pig import user, dice, highscore, Intellegance, shell
+from pig import user, dice, highscore, intellegance, shell
 
 
 class Gameplay:
     """A class that handles the gameplay."""
+
     def __init__(self):
-        """Initial class variables"""
+        """Initial class variables."""
         self.computer_score = 0
         self.rounds = 0
         self.round_score = 0
@@ -16,11 +17,11 @@ class Gameplay:
         self.user_2 = user.User
         self.users_turn = 1
         self.dice = dice.Dice()
-        self.intelligence = Intellegance.Intellegance()
+        self.intelligence = intellegance.Intellegance()
 
     # Saves a file if user quits before game has ended
     def read_to_file(self, user_to_save_1, user_to_save_2):
-        """This saves the game that is being played."""
+        """Save the current game."""
         try:
             to_save = (user_to_save_1, user_to_save_2)
             success = False
@@ -37,7 +38,7 @@ class Gameplay:
 
     # Checks if a current game exists
     def read_from_file(self):
-        """It loads a saved game."""
+        """Load a saved game."""
         try:
             with open("saved_game.pickle", "rb") as file:
                 user_to_load = ()
@@ -49,7 +50,7 @@ class Gameplay:
             return None, None
 
     def add_two_players(self):
-        """This method asks the player their."""
+        """Ask for user name."""
         user_name_1 = input("Enter Player 1 name: ")
         user_name_2 = input("Enter Player 2 name: ")
         users = [user_name_1, user_name_2]
@@ -102,7 +103,7 @@ class Gameplay:
         return dices
 
     def update_user_score(self, dices):
-        """Updates the score for user, also handles if user toss one or two one's."""
+        """Update the score for user, also handles if user toss one or two one's."""
         dice_1 = dices[0]
         dice_2 = dices[1]
         if self.users_turn == 1:
@@ -133,7 +134,7 @@ class Gameplay:
             return self.user_2
 
     def update_user_score_one_player(self, dices, one_player_user):
-        """Updates the score for user, also handles if user toss one or two one's."""
+        """Update the score for user, also handles if user toss one or two one's."""
         dice_1 = dices[0]
         dice_2 = dices[1]
         self.user_1 = one_player_user
@@ -150,7 +151,7 @@ class Gameplay:
         return self.user_1
 
     def hold(self):
-        """Saves the users and changes turn."""
+        """Save the users and changes turn."""
         if self.users_turn == 1:
             self.users_turn = 2
             self.read_to_file(self.user_1, self.user_2)
@@ -161,7 +162,7 @@ class Gameplay:
             return self.user_1
 
     def hold_one_player(self):
-        """Saves the users and changes turn."""
+        """Save the users and changes turn."""
         self.user_2 = user.User("computer")
         self.read_to_file(self.user_1, self.user_2)
         self.intelligence.toss_or_hold(self.user_1)
@@ -172,20 +173,12 @@ class Gameplay:
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved."""
         self.read_to_file(None, None)
-<<<<<<< HEAD
-        old_user_score = self.highscore.check_list(user_to_save)
-        self.highscore.check_highscore(user_to_save, old_user_score)
-        self.highscore.read_to_file()
-        self.user_1.score = 0
-        self.user_2.score = 0
-        self.user_1.toss_count = 0
-        self.user_2.toss_count = 0
-        return shell.Shell().cmdloop()
-=======
         if user_to_save.get_user_toss_count != 0:
-            user_to_save.update_highscore()
             old_user_score = self.highscore.check_list(user_to_save)
             self.highscore.check_highscore(user_to_save, old_user_score)
             self.highscore.read_to_file()
-        return True
->>>>>>> 94dde30e7037a7608f7ff98b49168b8bdddba02c
+            self.user_1.score = 0
+            self.user_2.score = 0
+            self.user_1.toss_count = 0
+            self.user_2.toss_count = 0
+        return shell.Shell().cmdloop()

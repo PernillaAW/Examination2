@@ -111,7 +111,7 @@ class TestGameplayClass (unittest.TestCase):
         exp = user_objects
         self.assertEqual(res, exp)
 
-    @patch('pig.Intellegance.Intellegance.level_choice')
+    @patch('pig.intellegance.Intellegance.level_choice')
     def test_computer_intelligence(self, mock_choice): 
         """Test so that the call for intelligence works""" 
         game = gameplay.Gameplay()
