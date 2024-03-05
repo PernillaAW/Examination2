@@ -165,7 +165,9 @@ class Gameplay:
     def winner(self, user_to_save):
         """When there is a winner their highscor shall be saved."""
         self.read_to_file(None, None)
-        old_user_score = self.highscore.check_list(user_to_save)
-        self.highscore.check_highscore(user_to_save, old_user_score)
-        self.highscore.read_to_file()
+        if user_to_save.get_user_toss_count != 0:
+            user_to_save.update_highscore()
+            old_user_score = self.highscore.check_list(user_to_save)
+            self.highscore.check_highscore(user_to_save, old_user_score)
+            self.highscore.read_to_file()
         return True

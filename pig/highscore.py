@@ -30,7 +30,7 @@ class Highscore:
     def check_highscore(self, current_user, player):
         """Compare current score with previous score in highscore."""
         if player.get_highscore() < current_user.get_highscore():
-            if player.get_user_toss_count() > current_user:
+            if player.get_user_toss_count() > current_user.get_user_toss_count():
                 self.update_highscore_list(player, current_user)
                 return current_user
         return player
