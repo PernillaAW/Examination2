@@ -81,13 +81,13 @@ class Shell(cmd.Cmd):
                 print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
             else:
                 if user.get_user_score() >= 100:
-                    print(f"{user.get_user_name()} has won the game! Congratulations. ")
+                    print(f"{user.get_user_name()} has won the game! Congratulations.\n\n ")
                     user.update_highscore()
                     self.game.winner(user)
                     return
                 else:
                     print(
-                        f"\n{user.get_user_name()} has {user.get_user_score()} "
+                        f"\n{user.get_user_name()} has {user.get_user_score()} and {user.score} "
                         f"points this round, Toss or Hold?.\n"
                     )
         # Plays against computer
@@ -110,7 +110,7 @@ class Shell(cmd.Cmd):
             else:
                 if self.user_comp_1.get_user_score() >= 100:
                     print(
-                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations."
+                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
                     )
                     self.user_comp_1.update_highscore()
                     self.game.winner(self.user_comp_1)

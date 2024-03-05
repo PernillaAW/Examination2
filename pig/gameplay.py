@@ -1,7 +1,7 @@
 """Importing class modules and libraries."""
 
 import pickle
-from pig import user, dice, highscore, Intellegance
+from pig import user, dice, highscore, Intellegance, shell
 
 
 class Gameplay:
@@ -168,4 +168,8 @@ class Gameplay:
         old_user_score = self.highscore.check_list(user_to_save)
         self.highscore.check_highscore(user_to_save, old_user_score)
         self.highscore.read_to_file()
-        return True
+        self.user_1.score = 0
+        self.user_2.score = 0
+        self.user_1.toss_count = 0
+        self.user_2.toss_count = 0
+        return shell.Shell().cmdloop()
