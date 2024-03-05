@@ -22,8 +22,7 @@ class User:
         """Update the current users score."""
         if score == 0:
             self.score = 0
-        else:
-            self.score += score
+        self.score += score
         return self.score
 
     def update_highscore(self):

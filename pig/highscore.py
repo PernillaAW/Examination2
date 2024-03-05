@@ -23,7 +23,7 @@ class Highscore:
         for player in self.playerlist:
             if player == current_user:
                 return player
-            elif player.get_user_name() == current_user.get_user_name():
+            elif player.get_user_name() == current_user:
                 return player
         return self.new_player(current_user)
 

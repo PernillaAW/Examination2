@@ -47,7 +47,7 @@ class Intellegance:
         result = self.tossing(die)
         while result != 0 \
             and result != 1 \
-            and self.tosses < 5*self.level \
+            and self.tosses < 4*self.level \
                 or self.score < self.level + player.get_user_score():
             if self.score >= 100:
                 self.computer_win()
