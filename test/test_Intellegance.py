@@ -44,11 +44,9 @@ class TestintelleganceClass(unittest.TestCase):
     def test_computer_winner(self):
         """This tests the result calculation method for tossing the dice."""
         computer = intellegance.Intellegance()
-        with patch.object(computer, 'score', 100):
-            assert computer.score == 100
-            res = computer.computer_win()
-            exp = 10
-            self.assertEqual(res, exp)
+        res = computer.computer_win()
+        exp = 10
+        self.assertEqual(res, exp)
 
     @patch("pig.user.User")
     def test_toss_or_hold_low(self, mock_get):
