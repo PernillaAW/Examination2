@@ -3,3 +3,4 @@
 
 
 """Unittest."""
+from pig import dice, gameplay, intellegance, main, rules, shell, user

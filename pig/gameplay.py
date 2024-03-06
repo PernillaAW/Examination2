@@ -193,7 +193,7 @@ class Gameplay:
         return self.user_1
 
     def cheater(self):
-        """Cheat to win"""
+        """Cheat to win."""
         self.user_1.cheat()
         self.user_1.update_highscore()
         self.winner(self.user_1)

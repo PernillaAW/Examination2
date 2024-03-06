@@ -167,5 +167,5 @@ class Shell(cmd.Cmd):
         self.game.cheater()
 
     def do_rules(self, _):
-        """The rules of the game"""
+        """The rules of the game."""
         print(rules.Rules.__doc__)
