@@ -9,7 +9,7 @@ class Highscore:
 
     def __init__(self):
         """Create object highscore."""
-        self.file = "highscore.pickle."
+        self.file = "highscore.pickle"
         self.playerlist = []
 
     def new_player(self, user_name):
@@ -49,6 +49,8 @@ class Highscore:
                 pickle.dump(self.playerlist, f)
         except IOError:
             print(f"Could not read file {self.file}")
+        except EOFError:
+            print(f"Error {self.file}")
         return True
 
     def read_from_file(self):
@@ -58,6 +60,8 @@ class Highscore:
                 self.playerlist = pickle.load(file)
         except IOError:
             print(f"Could not read file {self.file}")
+        except EOFError:
+            print(f"Error {self.file}")
 
     def sort_player_highscore(self):
         """Will sort the highscore list after highscore and tosses."""
