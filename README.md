@@ -118,4 +118,4 @@ When you start a game against the computer you get to choose the level of the co
 
 **-Gameplay and Shell-**
 ------------------------
-The gameplay class ties the shell class and the other classes together. It processes user inputs from the shell class and sends what is needed and to other classes to be processed. Whilst the Shell class handles the menu-choices and user inputs, gameplay then receives those inputs from the shell. Gameplay handles checking if user exist, update user score, saving current game and the winner method. 
+The gameplay class ties the shell class and the other classes together. It processes user inputs from the shell class and sends what is needed to the other classes to be processed. Whilst the Shell class handles the menu-choices and user inputs, gameplay then receives those inputs from the shell. Gameplay handles checking if user exist, update user score, saving current game and the winner method. 
