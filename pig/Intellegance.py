@@ -1,6 +1,6 @@
 """intellegance module."""
 
-import dice, shell
+from pig import dice, shell
 
 
 class Intellegance:
@@ -47,13 +47,11 @@ class Intellegance:
         die = dice.Dice
         result = self.tossing(die)
         self.is_winner()
-        print(f'first {result}')
         while result != 0 \
                 and self.tosses < (4 * self.level) \
                 and self.score < (self.level * 4 + player.get_user_score()):
             result = self.tossing(die)
             self.is_winner()
-            print(f'second {result}')
         return self.level
 
     def is_winner(self):

@@ -91,14 +91,14 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(res, exp)
 
     def test_get_toss_count(self):
-        """Test if get toss count returns toss count"""
+        """Test if get toss count returns toss count."""
         player = user.User("G")
         res = player.get_user_toss_count()
         exp = 0
         self.assertEqual(res, exp)
 
     def test_update_toss_count(self):
-        """Test update toss count"""
+        """Test update toss count."""
         player = user.User("G")
         res = player.update_toss_count()
         exp = 1
