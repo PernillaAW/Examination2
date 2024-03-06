@@ -9,7 +9,7 @@ class Highscore:
 
     def __init__(self):
         """Create object highscore."""
-        self.file = "highscore.pickle"
+        self.file = "highscore.pickle."
         self.playerlist = []
 
     def new_player(self, user_name):
