@@ -2,7 +2,7 @@ Release history
 ========================
 This is where we document all of our releases.
 
-v.1.0.0 (2024-03-06)
+v.1.1.0 (2024-03-06)
 ------------------------
 * Bug fixes
 * Single player, save game
