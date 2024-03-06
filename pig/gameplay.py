@@ -70,7 +70,7 @@ class Gameplay:
         users[0] = self.user_1
         users[1] = self.user_2
         return users
-    
+
     def check_if_user_exists_one_player(self, user_one):
         """Check if the user exists."""
         self.highscore.read_from_file()
@@ -167,10 +167,9 @@ class Gameplay:
         if dice_1 == 1 or dice_2 == 1:
             self.user_1.update_round_count(0)
             return self.user_1
-        else:
-            total_dices = dice_1 + dice_2
-            self.user_1.update_round_count(total_dices)
-            self.user_1.update_score(total_dices)
+        total_dices = dice_1 + dice_2
+        self.user_1.update_round_count(total_dices)
+        self.user_1.update_score(total_dices)
         return self.user_1
 
     def hold(self):

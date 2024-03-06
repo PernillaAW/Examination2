@@ -67,34 +67,28 @@ class Shell(cmd.Cmd):
             self.two_player = "Yes"
         else:
             print(error_message)
-        return
 
     def do_toss(self, _):
         """Toss the dices for you."""
         error_msg = "Please enter 'player 1' or 'player 2'."
         dices = self.game.toss()
         if self.two_player == "Yes":
-            user = self.game.update_user_score(dices)
+            user_1 = self.game.update_user_score(dices)
             print(f"Dices rolled: {dices[0]}, {dices[1]}")
             if dices[0] == 1 or dices[1] == 1:
                 print(
-                    f"\nBad luck, you rolled a 1. {user.get_user_name()} "
+                    f"\nBad luck, you rolled a 1. {user_1.get_user_name()} "
                     f"no points this round. \n"
                 )
             elif dices[0] == 1 and dices[1] == 1:
-                print(f"\nNo, two ones, all of  {user.get_user_name()}'s points disapear. \n")
-            else:
-                if user.get_user_score() >= 100:
-                    print(f"{user.get_user_name()} has won the game! Congratulations.\n\n ")
-                    user.update_highscore()
-
-                    self.game.winner(user)
-                    return self.cmdloop()
-                else:
-                    print(
-                        f"\n{user.get_user_name()} has {user.get_user_score()} and {user.score} "
-                        f"points this round, Toss or Hold?.\n"
-                    )
+                print(f"\nNo, two ones, all of  {user_1.get_user_name()}'s points disapear. \n")
+            if user_1.get_user_score() >= 100:
+                print(f"{user_1.get_user_name()} has won the game! Congratulations.\n\n ")
+                user_1.update_highscore()
+                self.game.winner(user_1)
+                return self.cmdloop()
+            print(f"\n{user_1.get_user_name()} has {user_1.get_user_score()}"
+                  f"and {user_1.score} points this round, Toss or Hold?.\n")
         # Plays against computer
         elif self.two_player == "No":
             self.user_comp_1 = self.game.update_user_score_one_player(
@@ -112,30 +106,28 @@ class Shell(cmd.Cmd):
                     f"\nNo, two ones, all {self.user_comp_1.get_user_name()} points disapear. \n"
                 )
                 self.game.hold_one_player()
-            else:
-                if self.user_comp_1.get_user_score() >= 100:
-                    print(
-                        f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
-                    )
-                    self.user_comp_1.update_highscore()
-                    self.game.winner(self.user_comp_1)
-                    return self.cmdloop()
-                else:
-                    print(
-                        f"\n{self.user_comp_1.get_user_name()} has "
-                        f"{self.user_comp_1.get_user_score()}"
-                        f" points this round, Toss or Hold?.\n"
-                    )
+
+            if self.user_comp_1.get_user_score() >= 100:
+                print(
+                    f"{self.user_comp_1.get_user_name()} has won the game! Congratulations.\n\n"
+                )
+                self.user_comp_1.update_highscore()
+                self.game.winner(self.user_comp_1)
+                return self.cmdloop()
+            print(f"\n{self.user_comp_1.get_user_name()} has "
+                  f"{self.user_comp_1.get_user_score()}"
+                  f" points this round, Toss or Hold?.\n")
         else:
             print(error_msg)
 
     def do_hold(self, _):
         """Hold the game and start tallys the score and saves it."""
         if self.two_player == "Yes":
-            user = self.game.hold()
+            user_1 = self.game.hold()
             print(
-                f"\n{user.get_user_name()}'s turn to play. Your total score is "
-                f"{user.get_user_score()} and you have tossed {user.get_user_toss_count()} times.\n"
+                f"\n{user_1.get_user_name()}'s turn to play. Your total score is "
+                f"{user_1.get_user_score()} and you have tossed {user_1.get_user_toss_count()}"
+                f" times.\n"
             )
         elif self.two_player == "No":
             self.game.hold_one_player()
