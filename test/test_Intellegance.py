@@ -95,7 +95,7 @@ class TestintelleganceClass(unittest.TestCase):
     def test_tossing_level_hard(self):
         """This will test the toss method with in the toss and hold method."""
         computer = intellegance.Intellegance()
-        computer.level_choice('hard')
+        computer.level_choice("hard")
         mock_dice = MagicMock()
         mock_die = mock_dice.return_value
         mock_die.dice_cheat.return_value = (2, 8)

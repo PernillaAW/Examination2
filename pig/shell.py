@@ -7,7 +7,6 @@ from pig import dice, gameplay, intellegance, user, highscore, rules
 class Shell(cmd.Cmd):
     """The introduction to a command driven game of dice."""
 
-
     intro = "This is a game of Pig \n\
      ___________________________________ \n\
     |                Menu               |\n\
@@ -49,7 +48,9 @@ class Shell(cmd.Cmd):
             user_name = input("What is your name?: ")
             self.user_comp_1 = user.User(user_name)
             self.computer = user.User("Computer")
-            self.user_comp_1 = self.game.check_if_user_exists_one_player(self.user_comp_1)
+            self.user_comp_1 = self.game.check_if_user_exists_one_player(
+                self.user_comp_1
+            )
             self.user_comp_1 = self.game.check_saved_game_one_player(self.user_comp_1)
             self.two_player = "No"
         elif arg == "2":
@@ -81,14 +82,20 @@ class Shell(cmd.Cmd):
                     f"no points this round. \n"
                 )
             elif dices[0] == 1 and dices[1] == 1:
-                print(f"\nNo, two ones, all of  {user_1.get_user_name()}'s points disapear. \n")
+                print(
+                    f"\nNo, two ones, all of  {user_1.get_user_name()}'s points disapear. \n"
+                )
             if user_1.get_user_score() >= 100:
-                print(f"{user_1.get_user_name()} has won the game! Congratulations.\n\n ")
+                print(
+                    f"{user_1.get_user_name()} has won the game! Congratulations.\n\n "
+                )
                 user_1.update_highscore()
                 self.game.winner(user_1)
                 return self.cmdloop()
-            print(f"\n{user_1.get_user_name()} has {user_1.get_user_score()}"
-                  f"and {user_1.score} points this round, Toss or Hold?.\n")
+            print(
+                f"\n{user_1.get_user_name()} has {user_1.get_user_score()}"
+                f"and {user_1.score} points this round, Toss or Hold?.\n"
+            )
         # Plays against computer
         elif self.two_player == "No":
             self.user_comp_1 = self.game.update_user_score_one_player(
@@ -114,9 +121,11 @@ class Shell(cmd.Cmd):
                 self.user_comp_1.update_highscore()
                 self.game.winner(self.user_comp_1)
                 return self.cmdloop()
-            print(f"\n{self.user_comp_1.get_user_name()} has "
-                  f"{self.user_comp_1.get_user_score()}"
-                  f" points this round, Toss or Hold?.\n")
+            print(
+                f"\n{self.user_comp_1.get_user_name()} has "
+                f"{self.user_comp_1.get_user_score()}"
+                f" points this round, Toss or Hold?.\n"
+            )
         else:
             print(error_msg)
 
@@ -134,17 +143,17 @@ class Shell(cmd.Cmd):
 
     def do_change_name(self, _):
         """Change user name."""
-        player_name = input('What is your user name: ')
+        player_name = input("What is your user name: ")
         self.highscore.read_from_file()
         player = self.highscore.check_list(player_name)
         old_name = player
-        new_name = input('Whats your new user name: ')
+        new_name = input("Whats your new user name: ")
         player.change_name(new_name)
         self.highscore.update_highscore_list(old_name, player)
 
     def do_display(self, _):
         """Will display the highscore list."""
-        print('High score list')
+        print("High score list")
         self.highscore.read_from_file()
         self.highscore.display()
 

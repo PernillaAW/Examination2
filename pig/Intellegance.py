@@ -47,9 +47,11 @@ class Intellegance:
         die = dice.Dice
         result = self.tossing(die)
         self.is_winner()
-        while result != 0 \
-                and self.tosses < (4 * self.level) \
-                and self.score < (self.level * 4 + player.get_user_score()):
+        while (
+            result != 0
+            and self.tosses < (4 * self.level)
+            and self.score < (self.level * 4 + player.get_user_score())
+        ):
             result = self.tossing(die)
             self.is_winner()
         return self.level
@@ -62,7 +64,7 @@ class Intellegance:
 
     def computer_win(self):
         """If the computer wins."""
-        print('Computer has won!')
+        print("Computer has won!")
         self.score = 0
         self.tosses = 10
         return self.tosses

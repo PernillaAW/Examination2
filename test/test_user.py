@@ -56,7 +56,7 @@ class TestUserClass(unittest.TestCase):
 
     def test_update_highscore(self):
         """Test update user hihscore."""
-        player = user.User('G')
+        player = user.User("G")
         player.update_score(100)
         res = player.update_highscore()
         exp = 100
