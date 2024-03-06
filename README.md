@@ -41,7 +41,10 @@ After that you can start the game with the command:
     python pig/main.py
 
 All of the program’s code is located in the directory pig/.
-
+You can choose to play against a friend or against the computer. If you choose to play against the computer you have three difficulty level to choose between. When the game prompts, you can choose:
+low
+medium
+hard
 
 **-How to run the unittests-**
 ------------------------------
