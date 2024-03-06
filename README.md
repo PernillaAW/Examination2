@@ -1,207 +1,121 @@
-Python development project template!!
-==========================
-
-[![Pipeline status](https://gitlab.com/mikael-roos/python-template/badges/main/pipeline.svg)](https://gitlab.com/mikael-roos/python-template/-/pipelines)
-[![Documentation Status](https://readthedocs.org/projects/a-python-project-template-codestyle-and-linters-included/badge/?version=latest)](https://a-python-project-template-codestyle-and-linters-included.readthedocs.io/en/latest/?badge=latest)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-A template for a Python development project.
-
-[[_TOC_]]
+*------Project Pig-----*
+========================
 
 
-
-Get going
+**----How to prepare----**
 --------------------------
+Install chocolatey:  **Windows Only**
+    Open your terminal and paste this:  
+    
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-This is how you can work with the development environment of this Python project.
+Install make:       **Windows Only**
 
+    choco install make
 
+Install a virtual environment:
 
-Check version of Python
---------------------------
+    make venv
 
-Check what version of Python you have. The Makefile uses `PYTHON=python` as default.
+Activate the virtual environment in your terminal:
+Windows:
+        
+    . .venv/Scripts/activate
+Linux/MacOS
 
-```
-# Check you Python installation
-make version
-```
+    . .venv/bin/activate
 
-If you have another naming of the Python executable then you can solve that using an environment variable. This is common on Mac and Linux.
+Install all requirements:
 
-```
-# Set the environment variable to be your python executable
-export PYTHON=python3
-make version
-```
+    make install
 
-Read more on [GNU make](https://www.gnu.org/software/make/manual/make.html).
 
+**-How to run the program-**
+----------------------------
+To be able to run the program you need to export the pythonpath.
+This is done with this code in Git Bash:
 
+    export PYTHONPATH=”.”
+After that you can start the game with the command:
 
-Python virtual environment
---------------------------
+    python pig/main.py
 
-Install a Python virtual environment and activate it.
+All of the program’s code is located in the directory pig/.
+You can choose to play against a friend or against the computer. If you choose to play against the computer you have three difficulty level to choose between. When the game prompts, you can choose:
 
-```
-# Create the virtual environment
-make venv
+low
 
-# Activate on Windows
-. .venv/Scripts/activate
+medium
 
-# Activate on Linx/Mac
-. .venv/bin/activate
-```
+hard
 
-When you are done you can leave the venv using the command `deactivate`.
 
-Read more on [Python venv](https://docs.python.org/3/library/venv.html).
+**-How to run the unittests-**
+------------------------------
+To run all unittests:
 
+    make unittest
 
+To run a single testfile:
 
-Install the dependencies
---------------------------
+    python -m unittest test.test_game
 
-Install the PIP packages that are dependencies to the project and/or the development environment. The dependencies are documented in the `requirements.txt`.
+To run a single testcase from a testfile:
 
-Do not forget to check that you have an active venv.
+    python -m unittest test.test_game.TestGameClass.test_init_default_object
 
-```
-# Do install them
-make install
+To run all unittests with coverage:
 
-# Check what is installed
-make installed
-```
+    make coverage
 
-Read more on [Python PIP](https://pypi.org/project/pip/).
+To get the html address for the coverage:
 
+    coverage html
+To read the coverage report locate:
 
+    htmlcov/index.html
+in your directory.
 
-Run the code
---------------------------
+To run all unittests with coverage and linters:
 
-The example program can be started like this.
+    make test
 
-```
-# Execute the main program
-python guess/main.py
-```
 
-All code is stored below the directory `guess/`.
+**-How to use linters-**
+------------------------
+Flake8:
 
+    flake8
 
+Pylint:
 
-Run the validators
---------------------------
+    make pylint
 
-You can run the static code validators like this. They check the sourcecode and exclude the testcode.
 
-```
-# Run each at a time
-make flake8
-make pylint
+**-Documentation-**
+-------------------
+All of our documentation for this program can be found in the directory doc/. 
 
-# Run all on the same time
-make lint
-```
+To reproduce documentation from the code:
 
-You might need to update the Makefile if you change the name of the source directory currently named `guess/`.
+    make doc
 
-Read more on:
+To generate class and package diagrams from the code:
 
-* [flake8](https://flake8.pycqa.org/en/latest/)
-* [pylint](https://pylint.org/)
+    make pyreverse
 
+To delete all generated files:
 
+    make clean
 
-Codestyle with black
---------------------------
+To delete all generated files and installations:
 
-You can unify the codestyle using black. Running black will change your source code to have a codestyle according to black codestyle.
+    make clean-all
 
-```
-# Same same, different names
-make black
-make codestyle
-```
+**-Intelligence-**
+------------------------
+When you start a game against the computer you get to choose the level of the computer. There is low, medium, hard. Your level choice will affect the gameplay. Intelligence looks at your score to make decision upon tossing or holding. It also looks at number of tosses has been done. At level hard there might even be a trick played on the dice. All of this affects how fast and aggressive the computer will play against you so chose carefully. 
 
-Read more on [black](https://pypi.org/project/black/).
-
-
-
-Run the unittests
---------------------------
-
-You can run the unittests like this. The testfiles are stored in the `test/` directory.
-
-```
-# Run unttests without coverage
-make unittest
-
-# Run unittests with coverage
-make coverage
-
-# Run the linters and the unittests with coverage
-make test
-```
-
-You can open a web browser to inspect the code coverage as a generated HTML report.
-
-```
-firefox htmlcov/index.html
-```
-
-Read more on:
-
-* [unittest](https://docs.python.org/3/library/unittest.html)
-* [coverage](https://coverage.readthedocs.io/)
-
-
-
-Run parts of the testsuite
---------------------------
-
-You can also run parts of the testsuite, for examples files or methods in files.
-
-You can run all tests from a testfile.
-
-```
-# Run a testfile
-python -m unittest test.test_game
-```
-
-You can also run a single testcase from a file.
-
-```
-# Run a test method, in a class, in a testfile
-python -m unittest test.test_game.TestGameClass.test_init_default_object
-```
-
-
-
-Remove generated files
---------------------------
-
-You can remove all generated files by this.
-
-```
-# Remove files generated for tests or caching
-make clean
-
-# Do also remove all you have installed
-make clean-all
-```
-
-
-
-More targets in the Makefile
---------------------------
-
-The makefile contains more targets, for example these.
-
-* `make pyreverse` to generate class and package diagrams from the code base.
-* `make doc` to generate documentation from the code.
+**-Shell-**
+------------------------
+This class is a sub-class of Cmd class, that is a 
