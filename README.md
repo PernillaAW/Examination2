@@ -115,3 +115,7 @@ To delete all generated files and installations:
 **-Intelligence-**
 ------------------------
 When you start a game against the computer you get to choose the level of the computer. There is low, medium, hard. Your level choice will affect the gameplay. Intelligence looks at your score to make decision upon tossing or holding. It also looks at number of tosses has been done. At level hard there might even be a trick played on the dice. All of this affects how fast and aggressive the computer will play against you so chose carefully. 
+
+**-Shell-**
+------------------------
+This class is a sub-class of Cmd class, that is a 
