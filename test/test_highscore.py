@@ -1,20 +1,23 @@
+"""Unittest for highscore.py."""
 import unittest
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import Mock, patch, mock_open, MagicMock
 from pig import highscore
 
 
 class TestHighscore(unittest.TestCase):
+    """Test case for highscore.py."""
 
     @patch("builtins.print")
     def test_new_player(self, mock_print):
+        """Making sure new players are added."""
         highscor = highscore.Highscore()
         new_user = highscor.new_player("TestUser")
 
         self.assertIn(new_user, highscor.playerlist)
 
-
     @patch("builtins.print")
     def test_check_list_existing_player(self, mock_print):
+        """Making sure existing players are in present in the list of highscores."""
         highscor = highscore.Highscore()
         existing_user = Mock(get_user_name=Mock(return_value="ExistingUser"))
         highscor.playerlist.append(existing_user)
@@ -25,6 +28,7 @@ class TestHighscore(unittest.TestCase):
     @patch('pig.user.User')
     @patch("builtins.print")
     def test_check_list_new_player(self, mock_print, mock_user):
+        """Making sure new players are present in the list of highscores."""
         highscor = highscore.Highscore()
         with patch.object(highscor, "new_player", return_value=(True)):
             with patch.object(mock_user, "NewUser"):
@@ -35,6 +39,7 @@ class TestHighscore(unittest.TestCase):
 
     @patch("builtins.print")
     def test_check_highscore_same_score(self, mock_print):
+        """Making sure score comparisons work if the scores are equal."""
         highscor = highscore.Highscore()
         player = Mock(get_highscore=Mock(return_value=90), get_user_toss_count=Mock(return_value=10))
         current_user = Mock(get_highscore=Mock(return_value=90), get_user_toss_count=Mock(return_value=12))
@@ -45,7 +50,7 @@ class TestHighscore(unittest.TestCase):
     @patch('builtins.open', new_callable=MagicMock)
     @patch('pickle.load')
     def test_read_from_file_higscore(self, mock_load, mock_open_file):
-        """Control that the program can read from a file."""
+        """Making sure that the program can read from a file."""
         highscor = highscore.Highscore()
         filename = "highscore.pickle."
         highscor.read_from_file()
@@ -53,17 +58,18 @@ class TestHighscore(unittest.TestCase):
         mock_open_file.assert_called_once_with(filename, 'rb')
         mock_load.assert_called_once_with(mock_open_file().__enter__())
 
-        @patch('pickle.dump')
-        def test_read_to_file(self, mock_dump):
-            """Check so it can save to a file successfully."""
-            highscor = highscore.Highscore()
-            with patch.object(highscor, 'playerlist', []):
-                sucess = highscor.read_to_file()
-                self.assertTrue(sucess)
+    @patch('pickle.dump')
+    def test_read_to_file(self, mock_dump):
+        """Making sure that it successfully can save to a file."""
+        highscor = highscore.Highscore()
+        with patch.object(highscor, 'playerlist', []):
+            sucess = highscor.read_to_file()
+            self.assertTrue(sucess)
 
     @patch("pig.user.User")
     @patch("builtins.print")
     def test_sort_player_highscore(self, mock_print, mock_user):
+        """Making sure that the list is sorted correctly."""
         highscor = highscore.Highscore()
         with patch.object(mock_user, "get_user_name", side_effect=("User1", "User2")):
             with patch.object(mock_user, "get_highscore", side_effect=(90, 100)):
@@ -77,6 +83,7 @@ class TestHighscore(unittest.TestCase):
     @patch('pig.user.User')
     @patch("builtins.print")
     def test_update_highscore_list(self, mock_print, mock_user):
+        """Making sure the list is properly updated."""
         highscor = highscore.Highscore()
         with patch.object(mock_user, 'get_user_name', side_effect=('user1', 'user2')):
             with patch.object(mock_user, 'get_highscore', side_effect=(90, 100)):
@@ -90,6 +97,7 @@ class TestHighscore(unittest.TestCase):
     @patch('pig.user.User')
     @patch("builtins.print")
     def test_display(self, mock_print, mock_user):
+        """Making sure the output is properly printed."""
         highscor = highscore.Highscore()
         with patch.object(mock_user, 'get_user_name', side_effect=('user1', 'user2')):
             with patch.object(mock_user, 'get_highscore', side_effect=(90, 100)):
