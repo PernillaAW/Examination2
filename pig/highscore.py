@@ -49,6 +49,7 @@ class Highscore:
                 pickle.dump(self.playerlist, f)
         except IOError:
             print(f"Could not read file {self.file}")
+        return True
 
     def read_from_file(self):
         """Read list from the binary file."""
