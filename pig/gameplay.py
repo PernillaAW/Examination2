@@ -63,9 +63,11 @@ class Gameplay:
         user_name_2 = users[1]
         self.user_1 = self.highscore.check_list(user_name_1)
         self.user_1.game_count += 1
+        self.user_1.toss_count = 0
 
         self.user_2 = self.highscore.check_list(user_name_2)
         self.user_2.game_count += 1
+        self.user_2.toss_count = 0
 
         users[0] = self.user_1
         users[1] = self.user_2
@@ -77,6 +79,7 @@ class Gameplay:
 
         self.user_1 = self.highscore.check_list(user_one.user_name)
         self.user_1.game_count += 1
+        self.user_1.toss_count = 0
 
         return self.user_1
 
@@ -208,6 +211,4 @@ class Gameplay:
             self.highscore.read_to_file()
             self.user_1.score = 0
             self.user_2.score = 0
-            self.user_1.toss_count = 0
-            self.user_2.toss_count = 0
         return shell.Shell().cmdloop()
