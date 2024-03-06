@@ -116,6 +116,6 @@ To delete all generated files and installations:
 ------------------------
 When you start a game against the computer you get to choose the level of the computer. There is low, medium, hard. Your level choice will affect the gameplay. Intelligence looks at your score to make decision upon tossing or holding. It also looks at number of tosses has been done. At level hard there might even be a trick played on the dice. All of this affects how fast and aggressive the computer will play against you so chose carefully. 
 
-**-Shell-**
+**-Gameplay and Shell-**
 ------------------------
-This class is a sub-class of Cmd class, that is a 
+The gameplay class ties the shell class and the other classes together. It processes user inputs from the shell class and sends what is needed and to other classes to be processed. Whilst the Shell class handles the menu-choices and user inputs, gameplay then receives those inputs from the shell. Gameplay handles checking if user exist, update user score, saving current game and the winner method. 
