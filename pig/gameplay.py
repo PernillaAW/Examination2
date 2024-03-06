@@ -1,7 +1,7 @@
 """Importing class modules and libraries."""
 
 import pickle
-import user, dice, highscore, intellegance, shell
+from pig import user, dice, highscore, intellegance, shell
 
 
 class Gameplay:

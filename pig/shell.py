@@ -1,7 +1,7 @@
 """Shell this is what the user see"""
 
 import cmd
-import dice, gameplay, intellegance, user, highscore
+from pig import dice, gameplay, intellegance, user, highscore, rules
 
 
 class Shell(cmd.Cmd):
@@ -9,17 +9,18 @@ class Shell(cmd.Cmd):
 
 
     intro = "This is a game of Pig \n\
-     ___________________________\n\
-    |            Menu           |\n\
-    | players - to start game   |\n\
-    | hold - pause current game |\n\
-    | display - highscore list  |\n\
-    | change_name               |\n\
-    | cheat - to win game       |\n\
-    | rules                     |\n\
-    | ? - help                  |\n\
-    | exit                      |\n\
-    |___________________________|\n"
+     ___________________________________ \n\
+    |                Menu               |\n\
+    | players 1 - start 1 player game   |\n\
+    | players 2 - start 2 player game   |\n\
+    | hold - pause current game         |\n\
+    | display - highscore list          |\n\
+    | change_name                       |\n\
+    | cheat - to win game               |\n\
+    | rules                             |\n\
+    | ? - help                          |\n\
+    | exit                              |\n\
+    |___________________________________|\n"
     prompt = "(PIG)"
 
     def __init__(self):
@@ -163,3 +164,7 @@ class Shell(cmd.Cmd):
         """Cheat to win the game (for testing purposes only)."""
         print("Cheater.. cheater..")
         self.game.cheater()
+
+    def do_rules(self, _):
+        """The rules of the game"""
+        print(rules.Rules.__doc__)
