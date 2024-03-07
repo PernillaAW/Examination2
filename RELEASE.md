@@ -2,6 +2,13 @@ Release history
 ========================
 This is where we document all of our releases.
 
+v.1.1.0 (2024-03-07)
+------------------------
+* Minor bug fixes
+* Completed README.md
+* Added the documentation and the
+* Automated docs
+
 v.1.1.0 (2024-03-06)
 ------------------------
 * Bug fixes
